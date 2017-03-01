@@ -56,17 +56,22 @@
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
-                           <form>
-                            Username:<br>
-                            <input type="text" name="username"><br>
-                            Password:<br>
-                            <input type="password" name="password">
-							Re-enter Password:<br>
-                            <input type="password" name="Password">
+                           <form action = "register.php" method ="POST">
+                            Firstname:<br>
+                            <input type="text" name="firstName"><br>
+                            LastName:<br>
+                            <input type="text" name="lastName"><br>
+							Student/Staff ID number:<br>
+                            <input type="number" name="idNumber"><br>
 							E-mail:<br> 
-							<input type="email" name="email" autocomplete="off">
+							<input type="email" name="email" autocomplete="off"><br>
+							Field:<br>
+                            <input type="text" name="field"><br>
+							Password:<br>
+                            <input type="password" name="password"><br>
+							
                             
-							<br>
+						
 							<br>
 							<input type="submit" value="Submit">
 							<p>&nbsp;</p>
