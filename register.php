@@ -7,12 +7,11 @@
  $field = $_POST['field'];
  $password = $_POST['password'];
  $userType = '1';
-$sql = "insert into users(first_name, last_name, student/staff_id, email, major_subject, password,) 
-VALUES ('$firstName', '$lastName', '$idNumber', '$email', '$field', '$password')";
+$sql = "INSERT INTO `users`(`first_name`, `last_name`, `student/staff_id`, `email`, `major_subject`, `password`, `user_type`) 
+VALUES ('$firstName', '$lastName', '$idNumber', '$email', '$field', '$password','$userType')";
 $result = mysqli_query($connect,$sql);
 
 header("location: index.html"); 	
-}
+
 
  ?>
- 
