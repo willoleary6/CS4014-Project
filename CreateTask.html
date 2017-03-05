@@ -17,22 +17,25 @@
             // Number of inputs to create
             var number = document.getElementById("tag").value;
             // Container <div> where dynamic content will be placed
-            var container = document.getElementById("container");
-            // Clear previous contents of the container
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
-            }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                container.appendChild(document.createTextNode("Tag " + (i+1)));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("input");
-                input.type = "text";
-                input.name = "Tags" + i;
-                container.appendChild(input);
-                // Append a line break 
-                container.appendChild(document.createElement("br"));
-            }
+			if(number > 0 && number < 5)
+			{
+				var container = document.getElementById("container");
+				// Clear previous contents of the container
+				while (container.hasChildNodes()) {
+					container.removeChild(container.lastChild);
+				}
+				for (i=0;i<number;i++){
+					// Append a node with a random text
+					container.appendChild(document.createTextNode("Tag " + (i+1)));
+					// Create an <input> element, set its type and name attributes
+					var input = document.createElement("input");
+					input.type = "text";
+					input.name = "Tags" + i;
+					container.appendChild(input);
+					// Append a line break 
+					container.appendChild(document.createElement("br"));
+				}
+			}
         }
     </script>
 	</head>
@@ -83,8 +86,8 @@
                             <input type="text" name="TaskTitle" required><br>
 							<div id="container">
 								Enter number of tags you would like to add(Max: 4):<br>
-								<input type="text" id="tag" name="Tags" value =""><br>
-								<a href="#" id="filldetails" onclick="addFields()">Add Tags</a>
+								<input type="number" id="tag" name="Tags" min="1" max="4" ><br>
+								<button href="#" id="filldetails" onclick="addFields()">Add Tags</button>
 							</div>
 							Description:<br>
                             <input type="text" name="Description" required><br>
