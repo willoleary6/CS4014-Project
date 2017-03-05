@@ -84,13 +84,18 @@
                            <form action = "#" method ="POST">
                             Task Title:<br>
                             <input type="text" name="TaskTitle" required><br>
+							Number of pages in document:<br>
+                            <input type="text" name="NumOfPages" required><br>
+							Number of words in document:<br>
+                            <input type="text" name="NumOfWords" required><br>
 							<div id="container">
 								Enter number of tags you would like to add(Max: 4):<br>
 								<input type="number" id="tag" name="Tags" min="1" max="4" ><br>
 								<button href="#" id="filldetails" onclick="addFields()">Add Tags</button>
 							</div>
+							
 							Description:<br>
-                            <input type="text" name="Description" required><br>
+                            <textarea type="textarea" name="Description" rows="5" required></textarea><br>
 							<br>
 							<input type="submit" value="Submit">
 							<p>&nbsp;</p>

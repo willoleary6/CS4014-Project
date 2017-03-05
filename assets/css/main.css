@@ -1794,6 +1794,11 @@
 				letter-spacing: 2px;
 				padding: 0.85em 2.75em 0.85em 2.75em;
 			}
+			#filldetails {
+				font-size: 0.62em;
+				letter-spacing: 2px;
+				padding: 0.85em 2.00em 0.85em 2.00em;
+			}
 
 		/* List */
 
