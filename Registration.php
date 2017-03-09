@@ -6,47 +6,38 @@
 -->
 <html>
 	<head>
-		<title>UL Website | Home</title>
+		<title>Registration</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	<body class="homepage">
+	<body class="no-sidebar">
 		<div id="page-wrapper">
 
 			<!-- Header -->
 				<div id="header-wrapper">
-					    <div id="header" class="container">
+					<div id="header" class="container">
 
 						<!-- Logo -->
-							<h1 id="logo"><a href="index.html">Group - 8's Proofer</a></h1>
-							<p>For all your proofreading needs.</p>
+							<h1 id="logo"><a href="index.html">Registration</a></h1>
+							<p>Time register this bitch.</p>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a class="icon fa-home" href="index.html"><span>Home</span></a></li>
 									
+								</ul>
+							</nav>
+
 					</div>
 				</div>
-            <!-- log in -->
-			      <div id="main-wrapper">
+
+			<!-- Main -->
+				<div id="main-wrapper">
 					<div id="main" class="container">
-						<h1> Please login</h1>
-					    <form method="post" action="#">
-						<div class="row 50%">
-							<div class="6u 12u(mobile)">
-								<input name="email" placeholder="Email" type="email" >
-							</div>
-							<div class="6u 12u(mobile)">
-								<input type="password"placeholder="password" name="password" > 
-							</div>
-						     <div class="6u 12u(mobile)">
-								<input type="submit" value="Login" > 
-							</div>
-						</div>
-					 
-					<br>
-					<br>
-					 <h1> Not a member? register here!</h1>
-			
 						<div id="content">
                            <form action = "register.php" method ="POST">
                             Firstname:<br>
@@ -78,15 +69,17 @@
                             
 						
 							<br>
-							<input type="submit" value="Register">
+							<input type="submit" value="Submit">
+							<p>&nbsp;</p>
 							 </form>
+							 <form action="Login.html">
+							 <input type="submit" value="Login">
+							</form>
                            
 						</div>
 					</div>
-				</div>		
-					
-					
-			     
+				</div>
+
 			<!-- Footer -->
 				<div id="footer-wrapper">
 					<div id="footer" class="container">
@@ -99,10 +92,10 @@
 									<form method="post" action="#">
 										<div class="row 50%">
 											<div class="6u 12u(mobile)">
-												<input name="name" placeholder="Name" type="message-text" />
+												<input name="name" placeholder="Name" type="text" />
 											</div>
 											<div class="6u 12u(mobile)">
-												<input name="email" placeholder="Email" type="message-text" />
+												<input name="email" placeholder="Email" type="text" />
 											</div>
 										</div>
 										<div class="row 50%">

@@ -1335,11 +1335,29 @@
 		display: block;
 		margin: 0 0 1em 0;
 	}
-
-	form input[type="text"],
+    form input[type="text"],
 	form input[type="email"],
 	form input[type="password"],
 	form input[type="number"],
+	form input[list ="fields"]{
+		-moz-transition: background-color 0.25s ease-in-out;
+		-webkit-transition: background-color 0.25s ease-in-out;
+		-ms-transition: background-color 0.25s ease-in-out;
+		transition: background-color 0.25s ease-in-out;
+		-webkit-appearance: none;
+		display: block;
+		border: 0;
+		background: #e8e8e8;
+		
+       
+		width: 50%;
+		box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+		border-radius: 4px;
+		line-height: 1.25em;
+		padding: 0.75em 1em 0.75em 1em;
+	}
+	
+	form input[type="message-text"],
 	form select,form textarea {
 		-moz-transition: background-color 0.25s ease-in-out;
 		-webkit-transition: background-color 0.25s ease-in-out;
@@ -1357,7 +1375,8 @@
 	}
 
 		form input[type="text"]:focus,
-		form input[type="email"]
+		form input[type="email"]:focus,
+		form input[list = "fields"]:focus,
 		input[type="password"]:focus,
 		form select:focus,
 		form textarea:focus {
@@ -1582,7 +1601,12 @@
 		background: #fff;
 		text-align: center;
 	}
-
+     #login-wrapper{
+		 position: absolute;
+		 background: #fff;
+	     text-align: center;
+	 }
+		
 		#features-wrapper p {
 			text-align: center;
 		}
