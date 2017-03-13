@@ -83,6 +83,8 @@
                            <form action = "Task.php" method ="POST">
                             Task Title:<br>
                             <input type="text" name="TaskTitle" required><br>
+							Enter Type of task:<br>
+                            <input type="text" name="TaskType" required><br>
 							Number of pages in document:<br>
                             <input type="text" name="NumOfPages" required><br>
 							Number of words in document:<br>
@@ -97,16 +99,16 @@
                             <textarea type="textarea" name="Description" rows="5" required></textarea><br>	
                 
 							Enter Claim By Deadline:<br>
-							<input type="date" name="ClaimBy" min="2017-03-01"><br>
+							<input type="datetime-local" name="ClaimBy" min="2017-03-01"><br>
 							<br>
 							Enter Completion Deadline:<br>
-  							<input type="date" name="Completion" min="2017-03-01"><br>
+  							<input type="datetime-local" name="Completion" min="2017-03-01"><br>
 							
 							<br>
 							Please Specify file type eg(.docx,.pdf):<br>
                             <input type="text" name="FileType" required><br>
 							
-                            <label for="c">Choose Sample File</label>
+                            <label for="c">Choose Sample File</label>l
 							<input id="c" name="SampleFile" type="file" required><br>
 						
 							<br>
