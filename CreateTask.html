@@ -80,7 +80,7 @@
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
-                           <form action = "#" method ="POST">
+                           <form action = "Task.php" method ="POST">
                             Task Title:<br>
                             <input type="text" name="TaskTitle" required><br>
 							Number of pages in document:<br>
@@ -97,16 +97,17 @@
                             <textarea type="textarea" name="Description" rows="5" required></textarea><br>	
                 
 							Enter Claim By Deadline:<br>
-							<input type="date" name="Claim By" min="2017-03-01"><br>
+							<input type="date" name="ClaimBy" min="2017-03-01"><br>
 							<br>
 							Enter Completion Deadline:<br>
   							<input type="date" name="Completion" min="2017-03-01"><br>
 							
-                            <br><label for="c">Choose Sample File</label>
-							<input id="c" name="c" type="file" aria-required="true"><br>
+							<br>
+							Please Specify file type eg(.docx,.pdf):<br>
+                            <input type="text" name="FileType" required><br>
 							
-							<br><label for="c">Choose Task File</label>
-							<input id="c" name="c" type="file" aria-required="true"><br>
+                            <label for="c">Choose Sample File</label>
+							<input id="c" name="SampleFile" type="file" required><br>
 						
 							<br>
 							<input type="submit" value="Submit">
