@@ -29,7 +29,7 @@
 					// Create an <input> element, set its type and name attributes
 					var input = document.createElement("input");
 					input.type = "text";
-					input.name = "Tags" + i;
+					input.name = "Tags" + (i + 1);
 					container.appendChild(input);
 					// Append a line break 
 					container.appendChild(document.createElement("br"));
@@ -89,10 +89,12 @@
                             <input type="text" name="NumOfPages" required><br>
 							Number of words in document:<br>
                             <input type="text" name="NumOfWords" required><br>
-							<div id="container">
+							
 								Enter number of tags you would like to add(Max: 4):<br>
 								<input type="number" id="tag" name="Tags" min="1" max="4" ><br>
+							<div id="container">
 								<button href="#" id="filldetails" onclick="addFields()">Add Tags</button>
+								
 							</div>
 							<br>
 							Description:<br>
