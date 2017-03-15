@@ -1,15 +1,14 @@
 <?php
  include 'dbh.php';
- $email = $_POST['email'];
- $password = $_POST['password'];
+ $email = strip_tags($_POST['email']);
+ $password = strip_tags($_POST['password']);
  $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
- $_SESSION['Error'] = "You left one or more of the required fields.";
  $result = mysqli_query($connect,$sql);
  if(!$row = $result -> fetch_assoc()){
-         echo "<script> alert('Error you have made a mistake.');
-         window.location.href='landing.php';
+         echo "<script> alert('Error you have not entered valid credentials.');
+         window.location.href='index.php';
 </script>";
    }else{
-	header("location: index.html");
+	header("location: test.html");
  }
 ?>
