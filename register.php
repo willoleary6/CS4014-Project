@@ -1,5 +1,6 @@
 <?php
  include 'dbh.php';
+ include 'setCookie';
  $firstName = strip_tags($_POST['firstName']);
  $lastName = strip_tags($_POST['lastName']);
  $idNumber = strip_tags($_POST['idNumber']);
@@ -14,5 +15,9 @@
  $sql = "INSERT INTO `user_details`(`first_name`, `last_name`, `student/staff_id`, `email`, `subject_id`, `password`) 
  VALUES ('$firstName', '$lastName', '$idNumber', '$email', '$field[0]', '$password')";
  $result = mysqli_query($connect,$sql);
+ $name ='email';
+ setCookie($name,$email);
+ $name = 'password';
+ setCookie($name,$password);
  header("location: test.html");
  ?>
