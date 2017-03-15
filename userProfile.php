@@ -42,7 +42,7 @@
 					<?php
 					for($i =0; $i < 5;$i++){
 					?>
-					<div id="main" class="container">
+					<!--<div id="main" class="container">-->
 						<div id="content">
 						<!-- task -->
 								<article class="box post">
@@ -54,7 +54,7 @@
 					}
 					?>
 				</div>
-				</div>
+				<!--</div>-->
 				</div>
 				
 				
