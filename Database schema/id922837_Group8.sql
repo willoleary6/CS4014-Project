@@ -106,7 +106,12 @@ CREATE TABLE `tasks` (
 --
 -- Table structure for table `taskStatus`
 --
-
+CREATE TABLE `taskStatus` (
+  `taskStatus_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `claim_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
