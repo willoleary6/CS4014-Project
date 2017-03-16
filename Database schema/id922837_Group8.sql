@@ -35,11 +35,7 @@ CREATE TABLE `major_subjects` (
 -- Dumping data for table `major_subjects`
 --
 
-INSERT INTO `major_subjects` (`subject_id`, `subject_name`) VALUES
-(1, 'Computer Science'),
-(2, 'Chemistry'),
-(3, 'Engineering'),
-(4, 'Physics');
+
 
 -- --------------------------------------------------------
 
@@ -56,10 +52,7 @@ CREATE TABLE `status` (
 -- Dumping data for table `status`
 --
 
-INSERT INTO `status` (`status_id`, `status`) VALUES
-(1, 'Unclaimed'),
-(2, 'Claimed'),
-(3, 'Flagged');
+
 
 -- --------------------------------------------------------
 
@@ -76,22 +69,7 @@ CREATE TABLE `tags` (
 -- Dumping data for table `tags`
 --
 
-INSERT INTO `tags` (`tag_id`, `text`) VALUES
-(1, 'test'),
-(2, 'cs-4014'),
-(3, 'ee4013'),
-(4, 'test'),
-(5, ''),
-(6, 'testTag2'),
-(7, 'second test tag '),
-(8, 'second test tag '),
-(9, 'test tag v.2'),
-(10, 'test tag v.3'),
-(11, 'test tag v.4'),
-(12, 'science'),
-(13, 'stuff'),
-(14, 'sciency stuff'),
-(15, 'top secret algeb');
+
 
 -- --------------------------------------------------------
 
@@ -121,9 +99,7 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`task_id`, `user_id`, `title`, `text_description`, `task_type`, `Attached_files`, `no_of_pages`, `no_of_words`, `Deadline`, `claim_by_date`, `file_type`, `tag_1`, `tag_2`, `tag_3`, `tag_4`) VALUES
-(11, 1, 'dsg', 'kjhgasdf', 'kjhfs', 0x756669756766, 3, 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '.docs', 2, 3, 3, 4),
-(13, 1, '$TaskTitle', '$Description', '$TaskType', 0x2453616d706c6546696c65, 3, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '$FileType', 1, 2, 3, 4);
+
 
 -- --------------------------------------------------------
 
@@ -131,12 +107,6 @@ INSERT INTO `tasks` (`task_id`, `user_id`, `title`, `text_description`, `task_ty
 -- Table structure for table `taskStatus`
 --
 
-CREATE TABLE `taskStatus` (
-  `taskStatus_id` int(11) NOT NULL,
-  `status_id` int(11) NOT NULL,
-  `claim_id` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -171,19 +141,7 @@ CREATE TABLE `user_details` (
 -- Dumping data for table `user_details`
 --
 
-INSERT INTO `user_details` (`user_id`, `first_name`, `last_name`, `student/staff_id`, `email`, `subject_id`, `password`, `reputation_score`) VALUES
-(1, 'William', 'Leary', 15155528, 'willoleary6@gmail.com', 1, 'AaronIsABadger', 0),
-(2, 'John', 'bloggs', 133984934, 'jbloggs@gmail.com', 1, 'Fuckyouaaron', 0),
-(3, 'Michael ', 'ralp', 46545845, 'mralp@gmail.com', 1, 'ftthtfyt', 0),
-(4, 'Michael ', 'ralphes', 46545845, 'yojhk@gmail.com', 1, 'ygygfy', 0),
-(5, 'Michael ', 'ralphes', 46545845, 'fgdf@gmail.com', 1, 'jhgjh', 0),
-(9, 'sds', 'wdw', 54545, 'dfdf@gmail.com', 2, 'dsdsd', 0),
-(13, 'john', 'df', 15, 'gfkgj@gmail.com', 2, 'dfjdj', 0),
-(15, 'dfdk', 'efe', 5, 'gdd@gmail.com', 1, 'ferfe', 0),
-(16, 'wdw', 'sds', 2332, 'fdf@gmail.com', 2, 'dfd', 0),
-(17, 'sds', 'fdd', 2147483647, 'sds@gmail.com', 2, 'ssfd', 0),
-(18, 'efas', 'swdw', 2147483647, 'ss@gmail.com', 1, 'Willis', 0),
-(19, 'dfdf', 'dfd', 2, 'dfd@hmail.com', 2, '', 0);
+
 
 --
 -- Indexes for dumped tables
