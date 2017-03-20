@@ -58,6 +58,7 @@
 							<nav id="nav">
 								<ul>
 									<li><a class="icon fa-cog" href="editProfile.html"><span>Edit profile</span></a></li>
+									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="index.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
 								</ul>
