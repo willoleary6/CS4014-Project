@@ -62,5 +62,5 @@
 	$sql = "INSERT INTO tasks(user_id, title, text_description, task_type, Attached_files, no_of_pages, no_of_words, Deadline, claim_by_date, file_type, tag_1, tag_2, tag_3, tag_4)
 			VALUES ('1', '$TaskTitle','$Description','$TaskType','$SampleFile','$NumOfPages','$NumOfWords','$Completion','$ClaimBy','$FileType', '$id_1','$id_2','$id_3','$id_4')";			
 	$result = mysqli_query($connect,$sql);
-	header("location: CreateTask.html");
+	header("location: task stream.php");
 ?>
