@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>[Placeholder for name]</title>
+		<title>[User Profile]</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -59,7 +59,7 @@
 								<ul>
 									<li><a class="icon fa-cog" href="editProfile.html"><span>Edit profile</span></a></li>
 									<li><a class="icon fa-retweet" href="index.php"><span>Log out</span></a></li>
-									<li><a class="icon fa-sitemap" href="createTask.html"><span>Create task</span></a></li>
+									<li><a class="icon fa-sitemap" href="CreateTask.html"><span>Create task</span></a></li>
 								</ul>
 							</nav>
 
