@@ -16,14 +16,43 @@
 	<body class="no-sidebar">
 		<div id="page-wrapper">
 
+			<?php
+					
+ 					include 'dbh.php';
+ 					
+ 					$sql = "SELECT * FROM user_details Where user_id = 1";
+ 					$comments = mysqli_query($connect, $sql);
+ 					
+ 					while($row = $comments->fetch_assoc()) 
+ 					{
+ 						$user_id = $row['user_id'];
+ 						$first_name = $row['first_name'];
+ 						//$student/staff_id = $row['student/staff_id'];
+  						$email = $row['email'];
+  						$subject_id = $row['subject_id'];
+  						$password = $row['password'];
+  						$reputation_score = $row['reputation_score'];
+
+  						
+  						$user_id = htmlspecialchars($row['user_id'],ENT_QUOTES);
+  						$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
+ 						$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
+  						//$student/staff_id = htmlspecialchars($row['student/staff_id'],ENT_QUOTES);
+  						$email = htmlspecialchars($row['email'],ENT_QUOTES);
+  						$subject_id = htmlspecialchars($row['subject_id'],ENT_QUOTES);
+  						$password = htmlspecialchars($row['password'],ENT_QUOTES);
+  						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
+  						}
+  						?>
+
 			<!-- Header -->
 				<div id="header-wrapper">
 					<div id="header" class="container">
 
 						<!-- Logo -->
-							<h1 id="logo">[Placeholder for name]</h1><br>
-							<h2 id ="logo">[Placeholder for rep score]</h2>
-							<p>Welcome [placeholder for name] please view any tasks you have created or claimed here.</p>
+							<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
+							<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
+							<p>Welcome, please view any tasks you have created or claimed here.</p>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -39,22 +68,24 @@
 
 			<!-- Main -->
 				<div id="main-wrapper">
-					<?php
-					for($i =0; $i < 5;$i++){
-					?>
-					<!--<div id="main" class="container">-->
+					<div id="main" class="container">
 						<div id="content">
-						<!-- task -->
-								<article class="box post">
-								<h2> <?php 
-								echo 'placeholder'?><h2>	
-								</article>
-
-					<?php
-					}
-					?>
-				</div>
-				<!--</div>-->
+							
+							<?php
+  						
+  						echo "  <div style='margin:30px 0px;'>
+   								 		User ID: $user_id<br />
+   								 		User Name: $first_name $last_name<br />
+										email: $email<br />
+										subject_id: $subject_id<br />
+										password: $password<br />
+								</div>";
+								 					
+ 					?>
+ 					
+												<p>&nbsp;</p>
+						</div>
+					</div>
 				</div>
 				
 				
@@ -62,84 +93,11 @@
 			<!-- Footer -->
 				<div id="footer-wrapper">
 					<div id="footer" class="container">
-						<header>
-							<h2>Questions or comments? <strong>Get in touch:</strong></h2>
-						</header>
-						<div class="row">
-							<div class="6u 12u(mobile)">
-								<section>
-									<form method="post" action="#">
-										<div class="row 50%">
-											<div class="6u 12u(mobile)">
-												<input name="name" placeholder="Name" type="text" />
-											</div>
-											<div class="6u 12u(mobile)">
-												<input name="email" placeholder="Email" type="text" />
-											</div>
-										</div>
-										<div class="row 50%">
-											<div class="12u">
-												<textarea name="message" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="row 50%">
-											<div class="12u">
-												<a href="#" class="form-button-submit button icon fa-envelope">Send Message</a>
-											</div>
-										</div>
-									</form>
-								</section>
-							</div>
-							<div class="6u 12u(mobile)">
-								<section>
-									<p>Erat lorem ipsum veroeros consequat magna tempus lorem ipsum consequat Phaselamet
-									mollis tortor congue. Sed quis mauris sit amet magna accumsan tristique. Curabitur
-									leo nibh, rutrum eu malesuada.</p>
-									<div class="row">
-										<div class="6u 12u(mobile)">
-											<ul class="icons">
-												<li class="icon fa-home">
-													1234 Somewhere Road<br />
-													Nashville, TN 00000<br />
-													USA
-												</li>
-												<li class="icon fa-phone">
-													(000) 000-0000
-												</li>
-												<li class="icon fa-envelope">
-													<a href="#">info@untitled.tld</a>
-												</li>
-											</ul>
-										</div>
-										<div class="6u 12u(mobile)">
-											<ul class="icons">
-												<li class="icon fa-twitter">
-													<a href="#">@untitled-tld</a>
-												</li>
-												<li class="icon fa-instagram">
-													<a href="#">instagram.com/untitled-tld</a>
-												</li>
-												<li class="icon fa-dribbble">
-													<a href="#">dribbble.com/untitled-tld</a>
-												</li>
-												<li class="icon fa-facebook">
-													<a href="#">facebook.com/untitled-tld</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</section>
-							</div>
-						</div>
-					</div>
+						
 					<div id="copyright" class="container">
 						<ul class="links">
 							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
-					</div>
-				</div>
-
-		</div>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
