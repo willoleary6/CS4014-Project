@@ -4,6 +4,12 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
+<?php
+  if(isset($_COOKIE['email'])){
+	header("location: login.php");
+	}else{
+?>
 <html>
 	<head>
 		<title>Landing page</title>
@@ -41,9 +47,9 @@
 									</div>
 									<form method="post" action="login.php">
 									E-mail<br>
-									<input type="email" name="email"><br>
+									<input type="email" name="email" required><br>
 									Password<br>
-									<input type="password" name="password"><br>
+									<input type="password" name="password" required><br>
 									<form action="test.html">
 										<input type="submit" value="Login">
 									</form>
@@ -58,15 +64,15 @@
 									</div>
 									<form action = "register.php" method ="POST">
 									Firstname:<br>
-									<input type="text" name="firstName"><br>
+									<input type="text" name="firstName" required><br>
 									LastName:<br>
-									<input type="text" name="lastName"><br>
+									<input type="text" name="lastName" required><br>
 									Student/Staff ID number:<br>
-									<input type="number" name="idNumber"><br>
+									<input type="number" name="idNumber" required><br>
 									E-mail:<br> 
-									<input type="email" name="email" autocomplete="off"><br>
+									<input type="email" name="email" autocomplete="off" required><br>
 									Field:<br>
-									<input list="fields" name="browser"><br>
+									<input list="fields" name="browser" required><br>
 									<datalist id="fields">
 									<?php
 									include 'dbh.php';
@@ -81,7 +87,7 @@
                                                           <?php  $names = mysqli_fetch_array($result); }?>
 									</datalist>
 									Password:<br>
-									<input type="password" name="password"><br>
+									<input type="password" name="password" required><br>
 							
 									<br>
 									<input type="submit" value="Submit">
@@ -113,3 +119,4 @@
 
 	</body>
 </html>
+	<?php } ?>

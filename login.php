@@ -1,6 +1,18 @@
 <?php
  include 'dbh.php';
  include 'setCookie';
+ 
+ if(isset($_COOKIE['email'])){
+	 $email = $_COOKIE['email'];
+	 $password = $_COOKIE['password'];
+	 $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
+     $result = mysqli_query($connect,$sql);
+     if(!$row = $result -> fetch_assoc()){
+        header("location: logout.php");
+    }else{
+	        header("location: userProfile.php"); 
+ } 
+ }else{
  $email = strip_tags($_POST['email']);
  $password = strip_tags($_POST['password']);
  $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
@@ -14,6 +26,7 @@
 	setCookie($name,$email);
 	$name = 'password';
 	setCookie($name,$password);
-	header("location: test.html");
+	header("location: userProfile.php");
+ }
  }
 ?>
