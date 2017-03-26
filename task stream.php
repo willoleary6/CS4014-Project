@@ -4,6 +4,18 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<?php
+include 'dbh.php';
+$sql = "SELECT task_id FROM `taskStatus` WHERE status_id = '1'";
+$result = mysqli_query($connect,$sql);
+$index = 0;
+if(mysqli_num_rows($result) > 0 ){
+while($array = mysqli_fetch_array($result)){
+   $tasks[$index] = $array['task_id'];
+   $index++;
+ }
+}
+?>
 <html>
 	<head>
 		<title>Left Sidebar - Strongly Typed by HTML5 UP</title>
@@ -55,7 +67,7 @@
 							                      </form>
 												</li>
 												<li>
-												<form action="index.php">
+												<form action="logout.php">
 							                      <input type="submit" value="Log out">
 							                      </form>
 												</li>
@@ -70,14 +82,23 @@
 							<!-- Content -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
                                                  <?php
-												  for($i = 0; $i < 10; $i++){
+												  for($i = 0; $i < sizeof($tasks); $i++){
+												  $sql = "SELECT * FROM `tasks` WHERE task_id = '$tasks[$i]'";  
+												  $result = mysqli_query($connect,$sql);
+												  $row = mysqli_fetch_assoc($result);
 												 ?>
-													
-												<section>
+													<section>
+                                                    <br>
+													<h2> task: <?php print($row['title']);
+                                                      ?> </h2>
+													<h3> Type: <?php print($row['task_type'])?>
 													<br>
-													<h2> task <?php $display = $i + 1;
-													echo "$display"; ?> </h2>
-													<p>Basic info about task <?php echo "$display"; ?> </p>
+													Claim by: <?php print($row['claim_by_date'])?> </h3>
+													<p>Basic info about task: <?php print($row['text_description'])?> 
+													<br>
+													Number of pages: <?php print($row['no_of_pages'])?>
+													<br>
+													Number of words: <?php print($row['no_of_words'])?><p>
 													<form action="index.php">
 							                        <input type="submit" value="View details">
 							                        </form>
