@@ -78,12 +78,12 @@
 							<?php
   						
   						echo "  <div style='margin:30px 0px;'>
-   								 		User ID: $user_id<br />
+   								 		User ID: $user_id<br /><br >
    								 		User Name: $first_name $last_name<br />
    								 		Student/Staff ID: $student_staff_id<br >
-										email: $email<br />
-										subject_id: $subject_id<br />
-										password: $password<br />
+										Email: $email<br />
+										Subject: $subject_id<br />
+										User Password: $password<br />
 								</div>";
 								 					
  					?>
