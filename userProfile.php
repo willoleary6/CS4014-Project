@@ -30,7 +30,7 @@
  					{
  						$user_id = $row['user_id'];
  						$first_name = $row['first_name'];
- 						//$student/staff_id = $row['student/staff_id'];
+ 						$student_staff_id = $row['student_staff_id'];
   						$email = $row['email'];
   						$subject_id = $row['subject_id'];
   						$password = $row['password'];
@@ -40,7 +40,7 @@
   						$user_id = htmlspecialchars($row['user_id'],ENT_QUOTES);
   						$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
  						$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
-  						//$student/staff_id = htmlspecialchars($row['student/staff_id'],ENT_QUOTES);
+  						$student_staff_id = htmlspecialchars($row['student_staff_id'],ENT_QUOTES);
   						$email = htmlspecialchars($row['email'],ENT_QUOTES);
   						$subject_id = htmlspecialchars($row['subject_id'],ENT_QUOTES);
   						$password = htmlspecialchars($row['password'],ENT_QUOTES);
@@ -80,6 +80,7 @@
   						echo "  <div style='margin:30px 0px;'>
    								 		User ID: $user_id<br />
    								 		User Name: $first_name $last_name<br />
+   								 		Student/Staff ID: $student_staff_id<br >
 										email: $email<br />
 										subject_id: $subject_id<br />
 										password: $password<br />
