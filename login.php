@@ -20,8 +20,10 @@
  if(!$row = $result -> fetch_assoc()){
          echo "<script> alert('Error you have not entered valid credentials.');
          window.location.href='index.php';
-</script>";
+         </script>";
    }else{
+	setcookie("email", "", time() - 3600);
+	setcookie("password", "", time() - 3600);
 	$name ='email';
 	setCookie($name,$email);
 	$name = 'password';

@@ -6,12 +6,12 @@
 -->
 <?php
 include 'dbh.php';
-$sql = "SELECT task_id FROM `taskStatus` WHERE status_id = '1'";
+$sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '1'";
 $result = mysqli_query($connect,$sql);
 $index = 0;
 if(mysqli_num_rows($result) > 0 ){
 while($array = mysqli_fetch_array($result)){
-   $tasks[$index] = $array['task_id'];
+   $claims[$index] = $array['claim_id'];
    $index++;
  }
 }
@@ -82,8 +82,11 @@ while($array = mysqli_fetch_array($result)){
 							<!-- Content -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
                                                  <?php
-												  for($i = 0; $i < sizeof($tasks); $i++){
-												  $sql = "SELECT * FROM `tasks` WHERE task_id = '$tasks[$i]'";  
+												  for($i = 0; $i < sizeof($claims); $i++){
+												  $sql = "SELECT task_id FROM `task_claims` WHERE claim_id = '$claims[$i]'";  
+												  $result = mysqli_query($connect,$sql);
+												  $task = mysqli_fetch_array($result);
+												  $sql = "SELECT * from tasks WHERE task_id = $task[0]";
 												  $result = mysqli_query($connect,$sql);
 												  $row = mysqli_fetch_assoc($result);
 												 ?>
