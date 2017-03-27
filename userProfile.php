@@ -17,10 +17,13 @@
 		<div id="page-wrapper">
 
 			<?php
-					
  					include 'dbh.php';
+ 					include 'cookieCheck.php';
  					
- 					$sql = "SELECT * FROM user_details Where user_id = 1";
+ 					$email = $_COOKIE['email'];
+	 				$password = $_COOKIE['password'];
+ 					
+ 					$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
  					$comments = mysqli_query($connect, $sql);
  					
  					while($row = $comments->fetch_assoc()) 
@@ -59,7 +62,7 @@
 								<ul>
 									<li><a class="icon fa-cog" href="editProfile.html"><span>Edit profile</span></a></li>
 									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
-									<li><a class="icon fa-retweet" href="index.php"><span>Log out</span></a></li>
+									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
 								</ul>
 							</nav>
