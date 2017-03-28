@@ -60,7 +60,7 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-cog" href="editProfile.html"><span>Edit profile</span></a></li>
+									<li><a class="icon fa-cog" href="Edit.php"><span>Edit Profile</span></a></li>
 									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
@@ -78,15 +78,35 @@
 							<?php
   						
   						echo "  <div style='margin:30px 0px;'>
-   								 		User ID: $user_id<br /><br >
-   								 		User Name: $first_name $last_name<br />
-   								 		Student/Staff ID: $student_staff_id<br >
-										Email: $email<br />
-										Subject: $subject_id<br />
-										User Password: $password<br />
-								</div>";
+   								 		User ID: $user_id<br />
+   								<div style='margin:30px 0px;'>		 	
+   										First Name: $first_name <div>";?>
+   										<input type="text" name="EditFN" required>
+   							<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Last Name: $last_name<div>";?>
+   										<input type="text" name="EditLN" required><br>			
+   										
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Student/Staff ID: $student_staff_id<div>";?>
+   										<input type="text" name="EditFN" required><br>	
+   								 		
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Email: $email<div>";?>
+   										<input type="text" name="EditEmail" required><br>		 		
+   								 		
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Subject: $subject_id<div>";?>
+   										<input type="text" name="EditSubject" required><br>		 		
+   								 		
+						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		User Password: $password<div>";?>
+   										<input type="text" name="EditPassword" required><br>								
 								 					
- 					?>
  					
 												<p>&nbsp;</p>
 						</div>
