@@ -10,6 +10,14 @@
 	$sql = "SELECT * from tasks WHERE task_id = $id";
 	$result = mysqli_query($connect,$sql);
 	$row = mysqli_fetch_assoc($result);
+	
+	function findTag($tag_id) {
+	include 'dbh.php';
+	$sql = "SELECT * from tags WHERE tag_id = $tag_id";
+	$result = mysqli_query($connect,$sql);
+	$tagRow = mysqli_fetch_assoc($result);
+	print($tagRow['text']);
+	}
 ?>
 <html>
 	<head>
@@ -89,6 +97,22 @@
 													Number of pages: <?php print($row['no_of_pages'])?>
 													<br>
 													Number of words: <?php print($row['no_of_words'])?>
+													<br>
+													Tag no.1: <?php if($row['tag_1'] != "1")
+																	findTag($row['tag_1']);
+																	else print("No associated tag");?>
+													<br>
+													Tag no.2: <?php if($row['tag_2'] != "1")
+																	findTag($row['tag_2']);
+																	else print("No associated tag");?>
+													<br>
+													Tag no.3: <?php if($row['tag_3'] != "1")
+																	findTag($row['tag_3']);
+																	else print("No associated tag");?>
+													<br>
+													Tag no.4: <?php if($row['tag_4'] != "1")
+																	findTag($row['tag_4']);
+																	else print("No associated tag");?>
 													<br>
 													File Type: <?php print($row['file_type'])?><p>
 
