@@ -36,7 +36,7 @@
 					<div id="header" class="container">
 
 						<!-- Logo -->
-							<h1 id="logo"><a href="index.html"><?php print($row['title'])?></a></h1>
+							<h1 id="logo"><a><?php print($row['title'])?></a></h1>
 							
 
 						<!-- Nav -->
@@ -60,13 +60,18 @@
 										<section>
 											<ul class="divided">
 												<li>
+                                                  <form action="task stream.php">
+							                      <input type="submit" value="Back to task Stream">
+							                      </form>
+												</li>
+												<li>
                                                   <form action="userProfile.php">
 							                      <input type="submit" value="My profile">
 							                      </form>
 												</li>
 												<li>
 												<form action="CreateTask.php">
-							                      <input type="submit" value="ClaimTask">
+							                      <input type="submit" value="Create Task">
 							                      </form>
 												</li>
 												<li>
@@ -115,7 +120,24 @@
 																	else print("No associated tag");?>
 													<br>
 													File Type: <?php print($row['file_type'])?><p>
-
+											<ul class="divided">
+												<li>
+                                                  <form action="userProfile.php">
+							                      <input type="submit" value="Download Preview">
+							                      </form>
+												</li>
+												<li>
+												<form action="CreateTask.php">
+							                      <input type="submit" value="Claim Task">
+							                      </form>
+												</li>
+												<li>
+												<form action="logout.php">
+							                      <input type="submit" value="Flag Task">
+							                      </form>
+												</li>
+												
+											</ul>
 													</section>												  
 									
 								</div>

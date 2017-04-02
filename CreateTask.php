@@ -76,7 +76,8 @@
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
-                           <form action = "Task.php" method ="POST">
+                           <form action = "Task.php" method ="POST" enctype="multipart/form-data">
+						   
                             Task Title:<br>
                             <input type="text" name="TaskTitle" required><br>
 							Enter Type of task:<br>
@@ -104,9 +105,9 @@
 							<br>
 							Please Specify file type eg(.docx,.pdf):<br>
                             <input type="text" name="FileType" required><br>
-							
-                            <label for="c">Choose Sample File</label>l
-							<input id="c" name="SampleFile" type="file" required><br>
+							<br>
+                            Choose Sample File
+							<input id="FileToUpload" name="FileToUpload" type="file" required><br>
 						
 							<br>
 							<input type="submit" value="Submit">
