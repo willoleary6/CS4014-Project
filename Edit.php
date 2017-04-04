@@ -60,7 +60,7 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-cog" href="Edit.php"><span>Edit Profile</span></a></li>
+									<li><a class="icon fa-cog" href="userProfile.php"><span>Profile</span></a></li>
 									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
@@ -74,8 +74,10 @@
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
+						<form action = "editUserProfile.php" method ="POST" enctype="multipart/form-data">
 							
 							<?php
+							
   						
   						echo "  <div style='margin:30px 0px;'>
    								 		User ID: $user_id<br />
@@ -90,7 +92,7 @@
    						<?php
    						echo "  <div style='margin:30px 0px;'>
    								 		Student/Staff ID: $student_staff_id<div>";?>
-   										<input type="text" name="EditFN" required><br>	
+   										<input type="text" name="EditSTID" required><br>	
    								 		
    						<?php
    						echo "  <div style='margin:30px 0px;'>
@@ -107,8 +109,14 @@
    								 		User Password: $password<div>";?>
    										<input type="text" name="EditPassword" required><br>								
 								 					
+						<input type="submit" value="Submit">
+						
+						
+						
+						
  					
-												<p>&nbsp;</p>
+								<p>&nbsp;</p>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -116,8 +124,6 @@
 				
 
 			<!-- Footer -->
-				<div id="footer-wrapper">
-					<div id="footer" class="container">
 						
 					<div id="copyright" class="container">
 						<ul class="links">

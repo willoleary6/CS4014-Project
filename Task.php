@@ -72,7 +72,8 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	 $password = $_COOKIE['password'];
 	 $sql = "SELECT user_id FROM `user_details` WHERE email = '$email' AND password = '$password'";
 	 $result = mysqli_query($connect,$sql);
-	 if(!$row = mysqli_fetch_array($result)){
+	 if(!$row = mysqli_fetch_array($result))
+	 	{
         echo 'couldnt get user id';
 		}else{
 	        //inserting details of the task itself

@@ -45,7 +45,15 @@
   						$subject_id = htmlspecialchars($row['subject_id'],ENT_QUOTES);
   						$password = htmlspecialchars($row['password'],ENT_QUOTES);
   						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
-  						}
+  					}
+  						
+  						$sql = "SELECT subject_name FROM 'major_subjects' Where subject_id = '$subject_id'";
+  						$result = mysqli_query($connect, $sql);
+  						$row = $comments->fetch_assoc();
+  						
+  						$subject_name = $row['subject_name'];
+  						$subject_name = htmlspecialchars($row['subject_name'],ENT_QUOTES);
+  						
   						?>
 
 			<!-- Header -->
@@ -60,7 +68,7 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-cog" href="editProfile.html"><span>Edit profile</span></a></li>
+									<li><a class="icon fa-cog" href="Edit.php"><span>Edit profile</span></a></li>
 									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
@@ -82,12 +90,10 @@
    								 		User Name: $first_name $last_name<br />
    								 		Student/Staff ID: $student_staff_id<br >
 										Email: $email<br />
-										Subject: $subject_id<br />
+										Subject: $subject_name<br />
 										User Password: $password<br />
 								</div>";
-								 					
- 					?>
- 					
+ 							?>
 												<p>&nbsp;</p>
 						</div>
 					</div>
@@ -96,9 +102,6 @@
 				
 
 			<!-- Footer -->
-				<div id="footer-wrapper">
-					<div id="footer" class="container">
-						
 					<div id="copyright" class="container">
 						<ul class="links">
 							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
