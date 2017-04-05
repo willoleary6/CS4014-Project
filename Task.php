@@ -1,5 +1,21 @@
 <?php
 	include 'dbh.php';
+		$target_dir = "userFiles/";
+	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+	$uploadOk = 1;
+	$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+	if (file_exists($target_file)) {
+    echo "Sorry, file already exists.";
+    $uploadOk = 0;
+}
+	if($uploadOk == 0)
+	{
+		echo "Sorry your file was not uploaded";
+	}
+	else{
+		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+			
 	$TaskTitle = 	strip_tags($_POST['TaskTitle']);
 	$NumOfPages = 	strip_tags($_POST['NumOfPages']);
 	$TaskType =		strip_tags($_POST['TaskType']);
@@ -9,21 +25,10 @@
 	$ClaimBy = 		strip_tags($_POST['ClaimBy']);
 	$Completion =	strip_tags($_POST['Completion']);
 	$FileType = 	strip_tags($_POST['FileType']);
-	$SampleFile = 	strip_tags($_POST['SampleFile']);
 	$id_1 = 1;
 	$id_2 = 1;
 	$id_3 = 1;
 	$id_4 = 1;
-	$target_dir = "userFiles/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-
 	if($tags >= 1){
 		$Tags1 = 		strip_tags($_POST['Tags1']);
 		$sql = "INSERT INTO tags(text)
@@ -79,7 +84,7 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	        //inserting details of the task itself
 			$userId = $row[0]; 
 			$sql = "INSERT INTO tasks(user_id, title, text_description, task_type, Attached_files, no_of_pages, no_of_words, Deadline, claim_by_date, file_type, tag_1, tag_2, tag_3, tag_4)
-			VALUES ('$userId', '$TaskTitle','$Description','$TaskType','$SampleFile','$NumOfPages','$NumOfWords','$Completion','$ClaimBy','$FileType', '$id_1','$id_2','$id_3','$id_4')";			
+			VALUES ('$userId', '$TaskTitle','$Description','$TaskType','$target_file','$NumOfPages','$NumOfWords','$Completion','$ClaimBy','$FileType', '$id_1','$id_2','$id_3','$id_4')";			
 	        if($result = mysqli_query($connect,$sql))
 			{
 			
@@ -121,5 +126,10 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 		
 	        
 		}
+		} else {
+			echo "Sorry, there was an error uploading your file.";
+		}
+	}
 
+	
 ?>
