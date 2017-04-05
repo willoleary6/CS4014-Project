@@ -45,15 +45,7 @@
   						$subject_id = htmlspecialchars($row['subject_id'],ENT_QUOTES);
   						$password = htmlspecialchars($row['password'],ENT_QUOTES);
   						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
-  					}
-  						
-  						$sql = "SELECT subject_name FROM 'major_subjects' Where subject_id = '$subject_id'";
-  						$result = mysqli_query($connect, $sql);
-  						$row = $comments->fetch_assoc();
-  						
-  						$subject_name = $row['subject_name'];
-  						$subject_name = htmlspecialchars($row['subject_name'],ENT_QUOTES);
-  						
+  						}
   						?>
 
 			<!-- Header -->
@@ -68,7 +60,7 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-cog" href="Edit.php"><span>Edit profile</span></a></li>
+									<li><a class="icon fa-cog" href="userProfile.php"><span>Profile</span></a></li>
 									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
@@ -82,19 +74,49 @@
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
+						<form action = "editUserProfile.php" method ="POST" enctype="multipart/form-data">
 							
 							<?php
+							
   						
   						echo "  <div style='margin:30px 0px;'>
-   								 		User ID: $user_id<br /><br >
-   								 		User Name: $first_name $last_name<br />
-   								 		Student/Staff ID: $student_staff_id<br >
-										Email: $email<br />
-										Subject: $subject_name<br />
-										User Password: $password<br />
-								</div>";
- 							?>
-												<p>&nbsp;</p>
+   								 		User ID: $user_id<br />
+   								<div style='margin:30px 0px;'>		 	
+   										First Name: $first_name <div>";?>
+   										<input type="text" name="EditFN" required>
+   							<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Last Name: $last_name<div>";?>
+   										<input type="text" name="EditLN" required><br>			
+   										
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Student/Staff ID: $student_staff_id<div>";?>
+   										<input type="text" name="EditSTID" required><br>	
+   								 		
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Email: $email<div>";?>
+   										<input type="text" name="EditEmail" required><br>		 		
+   								 		
+   						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		Subject: $subject_id<div>";?>
+   										<input type="text" name="EditSubject" required><br>		 		
+   								 		
+						<?php
+   						echo "  <div style='margin:30px 0px;'>
+   								 		User Password: $password<div>";?>
+   										<input type="text" name="EditPassword" required><br>								
+								 					
+						<input type="submit" value="Submit">
+						
+						
+						
+						
+ 					
+								<p>&nbsp;</p>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -102,6 +124,7 @@
 				
 
 			<!-- Footer -->
+						
 					<div id="copyright" class="container">
 						<ul class="links">
 							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>

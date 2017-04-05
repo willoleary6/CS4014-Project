@@ -83,9 +83,17 @@ while($array = mysqli_fetch_array($result)){
 							<!-- Content -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
                                                  <?php
+<<<<<<< HEAD
 												  $task = sorter();
 												  for($i = 0; $i < sizeof($task);$i++){
 												  $sql = "SELECT * from tasks WHERE task_id = $task[$i]";
+=======
+												  for($i = 0; $i < sizeof($claims); $i++){
+												  $sql = "SELECT task_id FROM `task_claims` WHERE claim_id = '$claims[$i]'";  
+												  $result1 = mysqli_query($connect,$sql);
+												  $task = mysqli_fetch_array($result1);
+												  $sql = "SELECT * from tasks WHERE task_id = $task[0]";
+>>>>>>> origin/master
 												  $result = mysqli_query($connect,$sql);
 												  $row = mysqli_fetch_assoc($result);
 												  ?>
