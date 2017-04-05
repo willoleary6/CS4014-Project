@@ -6,6 +6,7 @@
 -->
 <?php
 include 'dbh.php';
+include 'sortList.php';
 $sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '1'";
 $result = mysqli_query($connect,$sql);
 $index = 0;
@@ -62,7 +63,7 @@ while($array = mysqli_fetch_array($result)){
 							                      </form>
 												</li>
 												<li>
-												<form action="CreateTask.html">
+												<form action="CreateTask.php">
 							                      <input type="submit" value="Create task">
 							                      </form>
 												</li>
@@ -82,14 +83,12 @@ while($array = mysqli_fetch_array($result)){
 							<!-- Content -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
                                                  <?php
-												  for($i = 0; $i < sizeof($claims); $i++){
-												  $sql = "SELECT task_id FROM `task_claims` WHERE claim_id = '$claims[$i]'";  
-												  $result = mysqli_query($connect,$sql);
-												  $task = mysqli_fetch_array($result);
-												  $sql = "SELECT * from tasks WHERE task_id = $task[0]";
+												  $task = sorter();
+												  for($i = 0; $i < sizeof($task);$i++){
+												  $sql = "SELECT * from tasks WHERE task_id = $task[$i]";
 												  $result = mysqli_query($connect,$sql);
 												  $row = mysqli_fetch_assoc($result);
-												 ?>
+												  ?>
 													<section>
                                                     <br>
 													<h2> task: <?php print($row['title']);
@@ -102,7 +101,8 @@ while($array = mysqli_fetch_array($result)){
 													Number of pages: <?php print($row['no_of_pages'])?>
 													<br>
 													Number of words: <?php print($row['no_of_words'])?><p>
-													<form action="index.php">
+													<form action="taskDetails.php" method ="post">
+													<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
 							                        <input type="submit" value="View details">
 							                        </form>
 													</section>

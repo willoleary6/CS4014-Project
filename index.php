@@ -9,6 +9,24 @@
   if(isset($_COOKIE['email'])){
 	header("location: login.php");
 	}else{
+         include 'setCookie.php'; 
+        if(isset($_POST['SubmitButton'])) {
+		$url = 'https://www.google.com/recaptcha/api/siteverify';
+		$privatekey = "	6LeHgBoUAAAAAEYgL4dRfvjA8OmTh3r5zqDV4j7b";
+		setcookies("valid","total true");  
+		$response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+		$data = json_decode($response);
+		
+		if(isset($data->success) AND $data->success==true) {
+			//	If user is verified
+			
+                      setcookies("valid","true");
+		}else{
+ 			
+                      setcookies("valid","false");
+		}
+	}
+	
 ?>
 <html>
 	<head>
