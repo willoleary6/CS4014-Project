@@ -1,3 +1,20 @@
+<?php
+   if (isset($_POST['email'])) {
+	$email = $_POST['email'];
+	$allowed = array('studentmail.ul.ie', 'ul.ie');
+									
+        // Make sure the address is valid
+	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		$explodedEmail = explode('@', $email);
+		$domain = array_pop($explodedEmail);
+
+		if ( ! in_array($domain, $allowed)) {
+			echo "Invalid address. Must have the domain 'studentmail.ul.ie' or 'ul.ie'.";
+		}
+	}
+   }
+?>
+
 <!DOCTYPE HTML>
 <!--
 	Strongly Typed by HTML5 UP
@@ -47,8 +64,6 @@
 						<!-- Logo -->
 							<h1 id="logo"><a href="index.html">Welcome</a></h1>
 							<p>Please login or register.</p>
-
-						
 					</div>
 				</div>
 
@@ -71,6 +86,7 @@
 									<form action="test.html">
 										<input type="submit" value="Login">
 									</form>
+                                                                        <a href='recoverForm.html'>Forgot your password?</a>
 								</section>
 								</div>
 								<div class="6u 12u(mobile)">
