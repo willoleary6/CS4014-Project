@@ -18,15 +18,19 @@
         echo 'couldnt get user id';
 	}else
 	{
-			$userID = $row[0]; 
-			echo $userID;
-							
+			$userID = $row[0]; 							
 			$sql = "UPDATE user_details SET first_name='$first_name',last_name = '$last_name',student_staff_id = '$student_staff_id',email = '$email',password = '$password' WHERE user_id = '$userID'";
 											
 			//$sql = "UPDATE MyGuests SET lastname='Doe' WHERE id=2";
 											
-			$result = mysqli_query($connect,$sql);
-			echo 'success';
+			if($result = mysqli_query($connect,$sql))
+			{
+			header("location: userProfile.php");
+			}else
+			{
+			echo 'Profile Update Did Not Execute Correctly';
+			}
+			
 	}
 	
 ?>
