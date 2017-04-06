@@ -14,8 +14,8 @@
 	function findTag($tag_id) {
 	include 'dbh.php';
 	$sql = "SELECT * from tags WHERE tag_id = $tag_id";
-	$result = mysqli_query($connect,$sql);
-	$tagRow = mysqli_fetch_assoc($result);
+	$resultTag = mysqli_query($connect,$sql);
+	$tagRow = mysqli_fetch_assoc($resultTag);
 	print($tagRow['text']);
 	}
 ?>
@@ -127,9 +127,10 @@
 							                      </form>
 												</li>
 												<li>
-												<form action="CreateTask.php">
+												<form action="Claim.php" method = "POST">
+												  <input type = "hidden" name = "claim" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Claim Task">
-							                      </form>
+							                    </form>
 												</li>
 												<li>
 												<form action="logout.php">
