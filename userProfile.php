@@ -28,15 +28,6 @@
  					
  					while($row = $comments->fetch_assoc()) 
  					{
- 						$user_id = $row['user_id'];
- 						$first_name = $row['first_name'];
- 						$student_staff_id = $row['student_staff_id'];
-  						$email = $row['email'];
-  						$subject_id = $row['subject_id'];
-  						$password = $row['password'];
-  						$reputation_score = $row['reputation_score'];
-
-  						
   						$user_id = htmlspecialchars($row['user_id'],ENT_QUOTES);
   						$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
  						$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
@@ -47,7 +38,7 @@
   						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
   					}
   						
-  						$sql = "SELECT subject_name FROM 'major_subjects' Where subject_id = '$subject_id'";
+  						//$sql = "SELECT subject_name FROM 'major_subjects' Where subject_id = '$subject_id'";
   						$result = mysqli_query($connect, $sql);
   						$row = $comments->fetch_assoc();
   						

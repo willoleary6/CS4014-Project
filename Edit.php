@@ -27,16 +27,7 @@
  					$comments = mysqli_query($connect, $sql);
  					
  					while($row = $comments->fetch_assoc()) 
- 					{
- 						$user_id = $row['user_id'];
- 						$first_name = $row['first_name'];
- 						$student_staff_id = $row['student_staff_id'];
-  						$email = $row['email'];
-  						$subject_id = $row['subject_id'];
-  						$password = $row['password'];
-  						$reputation_score = $row['reputation_score'];
-
-  						
+ 					{	
   						$user_id = htmlspecialchars($row['user_id'],ENT_QUOTES);
   						$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
  						$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
@@ -55,7 +46,7 @@
 						<!-- Logo -->
 							<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
 							<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
-							<p>Welcome, please view any tasks you have created or claimed here.</p>
+							<p>Please Log In With New Details Once Page Edited.</p>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -99,10 +90,7 @@
    								 		Email: $email<div>";?>
    										<input type="text" name="EditEmail" required><br>		 		
    								 		
-   						<?php
-   						echo "  <div style='margin:30px 0px;'>
-   								 		Subject: $subject_id<div>";?>
-   										<input type="text" name="EditSubject" required><br>		 		
+   								 		
    								 		
 						<?php
    						echo "  <div style='margin:30px 0px;'>

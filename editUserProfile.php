@@ -18,6 +18,14 @@
         echo 'couldnt get user id';
 	}else
 	{
+	
+	$first_name = 	strip_tags($_POST['EditFN']);
+	$last_name = 	strip_tags($_POST['EditLN']);
+	$student_staff_id =		strip_tags($_POST['EditSTID']);
+	$email = 		strip_tags($_POST['EditEmail']);
+	$password = 	strip_tags($_POST['EditPassword']);	
+	
+	
 			$userID = $row[0]; 							
 			$sql = "UPDATE user_details SET first_name='$first_name',last_name = '$last_name',student_staff_id = '$student_staff_id',email = '$email',password = '$password' WHERE user_id = '$userID'";
 											
@@ -25,7 +33,7 @@
 											
 			if($result = mysqli_query($connect,$sql))
 			{
-			header("location: userProfile.php");
+			header("location: logout.php");
 			}else
 			{
 			echo 'Profile Update Did Not Execute Correctly';
