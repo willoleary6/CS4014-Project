@@ -1,7 +1,38 @@
 <?php
 	require 'dbh.php';
+<<<<<<< HEAD
 	
 	if (!isset($_GET['code'])) {
+=======
+
+	if (isset($_GET['code'])) {
+		$get_email = $_GET['email'];
+		$get_code = $_GET['code'];
+
+		$sql = "SELECT email FROM user_details WHERE email ='$get_email'";
+		$query = mysqli_query($connect,$sql);
+		$row = mysqli_fetch_array($query);
+
+		if(sizeof($row) > 0) {
+			$db_code = $row[0];
+			$db_email = $row[0];
+		}
+		
+		// New password is set
+		if ($get_email == $db_email && $get_code == $db_code) {
+			echo "
+				<form action='reset_pass.php?code=$get_code' method='POST'>
+					Enter your new password<br><input type='password' name='newpass'><p>
+					Re-enter your new password<br><input type='password' name='newpass1'><p>
+					<input type='hidden' name='email' value='$db_email'>
+					<input type='submit' value='Update Password'>
+				</form>
+			";
+		}
+	}
+	
+	if (!$_GET['code']) {
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 		if (isset($_POST['Submit'])) {
 			$email = $_POST['email']; 
 	
@@ -21,6 +52,10 @@
 					$to = $db_email;
 					$subject = "Password Reset";
 					$body = "
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 					This is an automated email. Please DO NOT reply to this email.
 
 					You have requested to have your account password reset. To do this, please
@@ -28,22 +63,39 @@
 	
 					
 					Link:
+<<<<<<< HEAD
 					https://cs-4014-project.000webhostapp.com/recover.php?code=$code&email=$email
+=======
+					https://cs-4014-project.000webhostapp.com/recover.php?code=$code&uniqid()&email=$email
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 				
 					";
 					
 					// Updates the password_reset variable in the database for the account
 					$sql = "UPDATE user_details SET password_reset='$code' WHERE email='$email'";
 					mysqli_query($connect,$sql);
+<<<<<<< HEAD
 					mail($to,$subject, $body);
+=======
+					mail($to, $from, $subject, $body);
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 
 					echo "A password rest request has been sent to your email inbox";
 				}
 			}
 			else {
+<<<<<<< HEAD
 				echo "Incorrect email";
 			}
 		}
+=======
+				echo "Incoorect email";
+			}
+		}
+		else {
+			echo "post didnt work";
+		}
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 	}
 ?>
 
@@ -101,6 +153,7 @@
 				</div>
 
 			<!-- Main -->
+<<<<<<< HEAD
 			<?php 
 			require 'dbh.php';
 
@@ -129,6 +182,10 @@
 				}
 			}
 			?>
+=======
+			
+
+>>>>>>> 2b5039df02694994416d3de70eb670114dab3b29
 			<!-- Footer -->
 				<div id="footer-wrapper">
 					<div id="copyright" class="container">
