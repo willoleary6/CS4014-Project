@@ -23,28 +23,30 @@
 -->
 
 <?php
-  if(isset($_COOKIE['email'])){
-	header("location: login.php");
-	}else{
-         include 'setCookie.php'; 
-        if(isset($_POST['SubmitButton'])) {
-		$url = 'https://www.google.com/recaptcha/api/siteverify';
-		$privatekey = "	6LeHgBoUAAAAAEYgL4dRfvjA8OmTh3r5zqDV4j7b";
-		setcookies("valid","total true");  
-		$response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
-		$data = json_decode($response);
+	if(isset($_COOKIE['email'])) {
+		header("location: login.php");
+	}
+	else {
+        include 'setCookie.php'; 
+        
+		if(isset($_POST['SubmitButton'])) {
+			$url = 'https://www.google.com/recaptcha/api/siteverify';
+			$privatekey = "	6LeHgBoUAAAAAEYgL4dRfvjA8OmTh3r5zqDV4j7b";
+			setcookies("valid","total true");  
+			$response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+			$data = json_decode($response);
 		
-		if(isset($data->success) AND $data->success==true) {
-			//	If user is verified
-			
-                      setcookies("valid","true");
-		}else{
- 			
-                      setcookies("valid","false");
+			if(isset($data->success) AND $data->success==true) {
+				//	If user is verified
+				setcookies("valid","true");
+			}
+			else { 
+				setcookies("valid","false");
+			}
 		}
 	}
-	
 ?>
+
 <html>
 	<head>
 		<title>Landing page</title>
@@ -53,104 +55,126 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script type="text/javascript">
+			function val(){
+				if (register.password.value == "") {
+					alert("Please enter your password.");
+					register.password.focus(); 
+					return false;
+				}
+				
+				if (register.cpassword.value == "") {
+					alert("Please re-enter your password to confirm it.");
+					return false;
+				}
+
+				if(register.password.value != register.cpassword.value){
+					alert("Error: Passwords do not match.");
+					return false;
+				}
+				return true;
+			}
+		</script>
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<div id="header-wrapper">
-					<div id="header" class="container">
+			<div id="header-wrapper">
+				<div id="header" class="container">
 
-						<!-- Logo -->
-							<h1 id="logo"><a href="index.html">Welcome</a></h1>
-							<p>Please login or register.</p>
-					</div>
+					<!-- Logo -->
+					<h1 id="logo"><a href="index.html">Welcome</a></h1>
+					<p>Please login or register.</p>
 				</div>
+			</div>
 
 			<!-- Main -->
-				
-				<div id="main-wrapper">
-					<div id="main" class="container">
-						<div id="content">
-							<div class="row">
-								<div class="6u 12u(mobile)">
+			<div id="main-wrapper">
+				<div id="main" class="container">
+					<div id="content">
+						<div class="row">
+							<div class="6u 12u(mobile)">
 								<section>
 									<div id="features-wrapper">
 										<h2><strong>Login</strong></h2>
 									</div>
 									<form method="post" action="login.php">
-									E-mail<br>
-									<input type="email" name="email" required><br>
-									Password<br>
-									<input type="password" name="password" required><br>
-									<form action="test.html">
-										<input type="submit" value="Login">
+										E-mail<br>
+										<input type="email" name="email" required><br>
+										Password<br>
+										<input type="password" name="password" required><br>
+										<form action="test.html">
+											<input type="submit" value="Login">
+										</form>
+										<a href='recoverForm.html'>Forgot your password?</a>
 									</form>
-                                                                        <a href='recoverForm.html'>Forgot your password?</a>
 								</section>
-								</div>
-								<div class="6u 12u(mobile)">
+							</div>
+							<div class="6u 12u(mobile)">
 								<section>
 									<div id="features-wrapper">
 										<header>
 											<h2><strong>Sign up today</strong></h2>
 										</header>
 									</div>
-									<form action = "register.php" method ="POST">
-									Firstname:<br>
-									<input type="text" name="firstName" required><br>
-									LastName:<br>
-									<input type="text" name="lastName" required><br>
-									Student/Staff ID number:<br>
-									<input type="number" name="idNumber" required><br>
-									E-mail:<br> 
-									<input type="email" name="email" autocomplete="off" required><br>
-									Field:<br>
-									<input list="fields" name="browser" required><br>
-									<datalist id="fields">
-									<?php
-									include 'dbh.php';
-									$numberOfFields = 0;
-									$sql = "SELECT subject_name FROM `major_subjects`";
-									$result = mysqli_query($connect,$sql);
-                                                          $numberOfFields = mysqli_num_rows($result);						  
-									$names = mysqli_fetch_array($result);
-                                                          for($i = 0; $i <$numberOfFields;$i++){	
-                                                           ?>
-									<option value ="<?php echo $names[0]; ?>" >
-                                                          <?php  $names = mysqli_fetch_array($result); }?>
-									</datalist>
-									Password:<br>
-									<input type="password" name="password" required><br>
-							
-									<br>
-									<input type="submit" value="Submit">
-									<p>&nbsp;</p>
+									<form action = "register.php" method ="POST" name >
+										Firstname:<br>
+										<input type="text" name="firstName" required><br>
+										LastName:<br>
+										<input type="text" name="lastName" required><br>
+										Student/Staff ID number:<br>
+										<input type="number" name="idNumber" required><br>
+										E-mail:<br> 
+										<input type="email" name="email" autocomplete="off" required><br>
+										Field:<br>
+										<input list="fields" name="browser" required><br>
+										<datalist id="fields">
+										<?php
+											include 'dbh.php';
+										
+											$numberOfFields = 0;
+											$sql = "SELECT subject_name FROM `major_subjects`";
+											$result = mysqli_query($connect,$sql);
+											$numberOfFields = mysqli_num_rows($result);						  
+											$names = mysqli_fetch_array($result);
+                                                          
+											for($i = 0; $i <$numberOfFields;$i++){	
+										?>
+										<option value ="<?php echo $names[0]; ?>" >
+										<?php  $names = mysqli_fetch_array($result); }?>
+										</datalist>
+										Password:<br>
+										<input type="password" name="password" required><br>
+										Confirm Password:<br>
+										<input type="password" name="cpassword" required><br>
+										<br>
+										<input type="submit" value="Submit">
+										<p>&nbsp;</p>
 									</form>
 								</section>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
 			<!-- Footer -->
-				<div id="copyright" class="container">
-					<ul class="links">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</div>
+			<div id="copyright" class="container">
+				<ul class="links">
+					<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
 		</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/skel-viewport.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.dropotron.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/skel-viewport.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
 	</body>
 </html>
-	<?php } ?>
+<?php } ?>
