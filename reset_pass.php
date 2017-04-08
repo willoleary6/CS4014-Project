@@ -31,6 +31,7 @@
 					<!-- Nav -->
 					<nav id="nav">
 						<ul>
+							<li><a class="icon fa-home" href="index.php"><span>Home</span></a></li>
 							<li><a href="#" class="icon fa-bar-chart-o"><span>Dropdown</span></a>
 								<ul>
 								<li><a href="#">Lorem ipsum dolor</a></li>
