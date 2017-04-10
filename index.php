@@ -1,51 +1,9 @@
-<?php
-   if (isset($_POST['email'])) {
-	$email = $_POST['email'];
-	$allowed = array('studentmail.ul.ie', 'ul.ie');
-									
-        // Make sure the address is valid
-	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		$explodedEmail = explode('@', $email);
-		$domain = array_pop($explodedEmail);
-
-		if ( ! in_array($domain, $allowed)) {
-			echo "Invalid address. Must have the domain 'studentmail.ul.ie' or 'ul.ie'.";
-		}
-	}
-   }
-?>
-
 <!DOCTYPE HTML>
 <!--
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-
-<?php
-	if(isset($_COOKIE['email'])) {
-		header("location: login.php");
-	}
-	else {
-        include 'setCookie.php'; 
-        
-		if(isset($_POST['SubmitButton'])) {
-			$url = 'https://www.google.com/recaptcha/api/siteverify';
-			$privatekey = "	6LeHgBoUAAAAAEYgL4dRfvjA8OmTh3r5zqDV4j7b";
-			setcookies("valid","total true");  
-			$response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
-			$data = json_decode($response);
-		
-			if(isset($data->success) AND $data->success==true) {
-				//	If user is verified
-				setcookies("valid","true");
-			}
-			else { 
-				setcookies("valid","false");
-			}
-		}
-	}
-?>
 
 <html>
 	<head>
@@ -55,26 +13,7 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<script type="text/javascript">
-			function val(){
-				if (register.password.value == "") {
-					alert("Please enter your password.");
-					register.password.focus(); 
-					return false;
-				}
-				
-				if (register.cpassword.value == "") {
-					alert("Please re-enter your password to confirm it.");
-					return false;
-				}
-
-				if(register.password.value != register.cpassword.value){
-					alert("Error: Passwords do not match.");
-					return false;
-				}
-				return true;
-			}
-		</script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
@@ -118,15 +57,19 @@
 											<h2><strong>Sign up today</strong></h2>
 										</header>
 									</div>
-									<form action = "register.php" method ="POST" name >
+									<form action = "register.php" method ="POST" >
 										Firstname:<br>
 										<input type="text" name="firstName" required><br>
 										LastName:<br>
 										<input type="text" name="lastName" required><br>
 										Student/Staff ID number:<br>
 										<input type="number" name="idNumber" required><br>
-										E-mail:<br> 
-										<input type="email" name="email" autocomplete="off" required><br>
+										E-mail:<br>
+										<input type="email" name="email" autocomplete="off" required>
+										<?php if (isset($_GET['EmailFail'])) { ?>
+										<b>*Must have the domain 'studentmail.ul.ie' or 'ul.ie'</b>
+										<?php } ?>
+										<br>
 										Field:<br>
 										<input list="fields" name="browser" required><br>
 										<datalist id="fields">
@@ -148,8 +91,11 @@
 										<input type="password" name="password" required><br>
 										Confirm Password:<br>
 										<input type="password" name="cpassword" required><br>
-										<br>
-										<input type="submit" value="Submit">
+										<div class="g-recaptcha" data-sitekey="6LeHgBoUAAAAADTe7a9J4JYYtsBgfVbaZjuBHlYT"></div><br>
+										<input type="submit" value="Submit" name="submit"><br>
+										<?php if (isset($_GET['CaptchaFail'])) { ?>
+										<b>*Could not register. Captcha failed</b><br>
+										<?php } ?>
 										<p>&nbsp;</p>
 									</form>
 								</section>
@@ -177,4 +123,3 @@
 		<script src="assets/js/main.js"></script>
 	</body>
 </html>
-<?php } ?>
