@@ -16,17 +16,104 @@ while($array = mysqli_fetch_array($result)){
    $index++;
  }
 }
+function findTag($tag_id) {
+	include 'dbh.php';
+	$sql = "SELECT * from tags WHERE tag_id = $tag_id";
+	$resultTag = mysqli_query($connect,$sql);
+	$tagRow = mysqli_fetch_assoc($resultTag);
+	return $tagRow["text"];
+	}
+function filter($row){
+include 'dbh.php';
+$template = array("tag_1","tag_2","tag_3","tag_4");
+for($k = 0; $k < sizeof($template);$k++){
+	 $template[$k] = findTag($row[$template[$k]]);
+}
+$cookie_name = 'tags';
+if(!isset($_COOKIE[$cookie_name])) {
+    return true;
+}else{
+	$tagsArray =  explode(",", $_COOKIE[$cookie_name]);
+    for($i = 0; $i < sizeof($tagsArray);$i++){
+		for($j = 0; $j < sizeof($template); $j++){
+			if($tagsArray[$i] === $template[$j]){
+				return true;
+			}
+		}
+	}
+	return false;
+ }	
+}
 ?>
+<script>
+function clear()
+{
+	document.cookie = "tags=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    location.reload();
+}
+function displayTags()
+{
+	var tags = readCookie('tags');
+	if(tags){
+	document.getElementById("ClearBtn").style.visibility = "visible";
+	var array = tags.split(",");
+	var container = document.getElementById("container");
+	for (i=0;i<array.length;i++){
+					// Append a node with a tag text
+					container.appendChild(document.createTextNode(array[i]));
+			        // Append a line break 
+					container.appendChild(document.createElement("br"));
+				}
+	}
+	else{
+		document.getElementById("ClearBtn").style.visibility = "hidden";
+	}
+ 
+}
+
+// copied readCookie from stack overflow
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function addTag()
+{
+	
+	var d = new Date();
+    d.setTime(d.getTime() + (3*365*24*60*60*1000));
+	var expires = "expires ="+ d.toGMTString();
+	var newTag = document.getElementById("tag").value;
+	var tags = readCookie('tags'); 
+	if(!tags)
+	{
+		document.cookie = "tags = "+newTag+","+";"+expires+";";
+	    tags = readCookie('tags'); 
+	    location.reload();
+	}else{
+	 tags = tags+","+newTag;
+     document.cookie = "tags = "+tags+";"+expires+";";
+	 location.reload();	
+  
+	}
+}
+</script>
 <html>
 	<head>
-		<title>Left Sidebar - Strongly Typed by HTML5 UP</title>
+		<title>Task stream</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	<body class="left-sidebar">
+	<body class="left-sidebar" onload ="displayTags()">
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -45,7 +132,7 @@ while($array = mysqli_fetch_array($result)){
 
 					</div>
 				</div>
-
+               
 			<!-- Main -->
 				<div id="main-wrapper">
 					<div id="main" class="container">
@@ -53,7 +140,7 @@ while($array = mysqli_fetch_array($result)){
 
 							<!-- Sidebar -->
 								<div id="sidebar" class="4u 12u(mobile)">
-
+                                  
 									<!-- Excerpts -->
 										<section>
 											<ul class="divided">
@@ -75,11 +162,41 @@ while($array = mysqli_fetch_array($result)){
 												
 											</ul>
 										</section>
-
-									
-
-								</div>
-
+                                       
+									   <section>
+                                       <p> Want to see tasks more personalised to you're experience? <br>
+									     Subscribe to tasks 
+									   
+									   <form action = "JavaScript:addTag()">
+									   Filter:<br>
+									   <input list="fields" id = "tag" name="tags" required><br>
+									   
+									   <datalist id="fields">
+									   <?php
+									   $numberOfFields = 0;
+									   $sql = "SELECT text FROM `tags`";
+									   $result = mysqli_query($connect,$sql);
+                                                          $numberOfFields = mysqli_num_rows($result);						  
+									   $names = mysqli_fetch_array($result);
+                                                          for($i = 0; $i <$numberOfFields;$i++){	
+                                                           ?>
+									   <option value ="<?php echo $names[0]; ?>" >
+                                                          <?php  $names = mysqli_fetch_array($result); }?>
+									  </datalist>
+									  
+									   <input type="submit" value="Subscribe">	
+							           <div id="container">
+									    <p> List of subscribed tags</p>
+									   </div>
+									  </form>
+									   <form action = "JavaScript:clear()">
+									    <br>
+					                   <input type="submit" id = "ClearBtn" value="Clear">	
+									    </form>
+									  
+                                     </section>
+								    
+							</div>
 							<!-- Content -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
                                                  <?php
@@ -88,7 +205,9 @@ while($array = mysqli_fetch_array($result)){
 												  $sql = "SELECT * from tasks WHERE task_id = $task[$i]";
 												  $result = mysqli_query($connect,$sql);
 												  $row = mysqli_fetch_assoc($result);
-												 ?>
+												  
+												  if(filter($row)){
+												   ?>
 													<section>
                                                     <br>
 													<h2> task: <?php print($row['title']);
@@ -107,7 +226,8 @@ while($array = mysqli_fetch_array($result)){
 							                        </form>
 													</section>
 
-												  <?php } ?>
+												   <?php }
+												   } ?>
 									
 								</div>
 
