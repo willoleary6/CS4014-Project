@@ -19,8 +19,8 @@
 	}else
 	{
 	
-	$first_name = 	strip_tags($_POST['EditFN']);
-	$last_name = 	strip_tags($_POST['EditLN']);
+	$first_name =	strip_tags($_POST['EditFN']);
+	$last_name =	strip_tags($_POST['EditLN']);
 	$student_staff_id =		strip_tags($_POST['EditSTID']);
 	$email = 		strip_tags($_POST['EditEmail']);
 	$password = 	strip_tags($_POST['EditPassword']);	

@@ -3,6 +3,7 @@
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Bernard Steemers - 15182819
 -->
 <html>
 	<head>
@@ -12,6 +13,36 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		
+		<script type="text/javascript">
+
+ 		 function checkForm(form)
+		{
+		    // validation fails if the input is blank
+  		  if(form.inputfield.value == "") 
+  		  {
+     		 alert("Error: Input is empty!");
+     		 form.inputfield.focus();
+   		   return false;
+   		}
+
+  		 // regular expression to match only alphanumeric characters and spaces
+   		 var re = /^[\w ]+$/;
+
+   		 // validation fails if the input doesn't match our regular expression
+   		 if(!re.test(form.inputfield.value)) 
+   		 {
+    		  alert("Error: Input contains invalid characters!");
+     		 form.inputfield.focus();
+     		 return false;
+   		 }
+
+  		  // validation was successful
+    	return true;
+ 		}
+
+</script>
+		
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
@@ -46,7 +77,7 @@
 						<!-- Logo -->
 							<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
 							<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
-							<p>Please Log In With New Details Once Page Edited.</p>
+							<p>Once Edited You Will Be Asked to Login With New Details</p>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -94,7 +125,7 @@
    								 		
 						<?php
    						echo "  <div style='margin:30px 0px;'>
-   								 		User Password: $password<div>";?>
+   								 		New Password: $password<div>";?>
    										<input type="text" name="EditPassword" required><br>								
 								 					
 						<input type="submit" value="Submit">

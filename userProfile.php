@@ -3,6 +3,7 @@
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Bernard Steemers - 15182819
 -->
 <html>
 	<head>
@@ -86,7 +87,37 @@
 								</div>";
  							?>
 												<p>&nbsp;</p>
-						</div>
+							<!-- User Tasks -->
+								<div id="content" class="8u 12u(mobile) important(mobile)">
+								<h2>Your Created Tasks</h2>
+                                <?php
+								$sql = "SELECT * from tasks WHERE user_id = $user_id";
+								$result = mysqli_query($connect,$sql);
+								While($row = mysqli_fetch_assoc($result))
+								{
+								?>
+								<section>
+                                <br>
+								<h2> task: <?php print($row['title']);
+                                ?> </h2>
+								<h3> Type: <?php print($row['task_type'])?>
+								<br>
+								Claim by: <?php print($row['claim_by_date'])?> </h3>
+								<p>Basic info about task: <?php print($row['text_description'])?> 
+								<br>
+								Number of pages: <?php print($row['no_of_pages'])?>
+								<br>
+								Number of words: <?php print($row['no_of_words'])?><p>
+								<form action="taskDetails.php" method ="post">
+								<input type = "hidden" name ="text" value = "<?php print($row['user_id'])?>">
+							    <input type="submit" value="View details">
+							    </form>
+								</section>
+								<?php 
+								}?>
+									
+								</div>
+						</div>						
 					</div>
 				</div>
 				
