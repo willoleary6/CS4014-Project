@@ -133,7 +133,8 @@
 							                    </form>
 												</li>
 												<li>
-												<form action="logout.php">
+												<form action="flag.php">
+												  <input type = "hidden" name = "flag" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Flag Task">
 							                      </form>
 												</li>
