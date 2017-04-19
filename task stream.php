@@ -5,17 +5,21 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <?php
+// calling the database handler and the tasksorter
 include 'dbh.php';
 include 'sortList.php';
+// selecting all the tasks that are unclaimed
 $sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '1'";
 $result = mysqli_query($connect,$sql);
 $index = 0;
+// if there are any unclaimed tasks on the website
 if(mysqli_num_rows($result) > 0 ){
-while($array = mysqli_fetch_array($result)){
-   $claims[$index] = $array['claim_id'];
-   $index++;
+  while($array = mysqli_fetch_array($result)){
+    $claims[$index] = $array['claim_id'];
+    $index++;
  }
 }
+// function to find the text of each tag id provided
 function findTag($tag_id) {
 	include 'dbh.php';
 	$sql = "SELECT * from tags WHERE tag_id = $tag_id";
@@ -23,38 +27,50 @@ function findTag($tag_id) {
 	$tagRow = mysqli_fetch_assoc($resultTag);
 	return $tagRow["text"];
 	}
+
+/* function that checks if the tags the user has subscribed to are in each 
+of the unclaimed tasks and if so will print them*/ 	
 function filter($row){
-include 'dbh.php';
-$template = array("tag_1","tag_2","tag_3","tag_4");
-for($k = 0; $k < sizeof($template);$k++){
-	 $template[$k] = findTag($row[$template[$k]]);
-}
-$cookie_name = 'tags';
-if(!isset($_COOKIE[$cookie_name])) {
+ include 'dbh.php';
+ $tagList = array("tag_1","tag_2","tag_3","tag_4");
+ // getting the text of each of the tags (only tag ids were provided)
+ for($k = 0; $k < sizeof($tagList);$k++){
+	 $tagList[$k] = findTag($row[$tagList[$k]]);
+ }
+ $cookie_name = 'tags';
+ // check if the cookie "tags" has been set, if so then the filter will go to work
+ if(!isset($_COOKIE[$cookie_name])) {
     return true;
-}else{
-	$tagsArray =  explode(",", $_COOKIE[$cookie_name]);
-    for($i = 0; $i < sizeof($tagsArray);$i++){
-		for($j = 0; $j < sizeof($template); $j++){
-			if($tagsArray[$i] === $template[$j]){
-				return true;
+	}else{
+		 //split the tags into an array with ","
+		 $subscribedTags =  explode(",", $_COOKIE[$cookie_name]);
+		 for($i = 0; $i < sizeof($subscribedTags);$i++){
+			for($j = 0; $j < sizeof($tagList); $j++){
+				//if one of the tasks tags matches a subscribed tag return true
+				if($subscribedTags[$i] === $tagList[$j]){
+					return true;
+				}
 			}
-		}
+		 }
+		 //if there is no match, return false
+		 return false;
+		}	
 	}
-	return false;
- }	
-}
 ?>
 <script>
+//javascript to clear the subscribed list
 function clear()
 {
 	document.cookie = "tags=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    location.reload();
+    //reload page once cookie is cleared
+	location.reload();
 }
+//javascript to show to the user all the tags he/she has subscribed too
 function displayTags()
 {
 	var tags = readCookie('tags');
 	if(tags){
+	
 	document.getElementById("ClearBtn").style.visibility = "visible";
 	var array = tags.split(",");
 	var container = document.getElementById("container");
@@ -63,15 +79,17 @@ function displayTags()
 					container.appendChild(document.createTextNode(array[i]));
 			        // Append a line break 
 					container.appendChild(document.createElement("br"));
-				}
+		}
 	}
 	else{
+		//if the user isn't subscribed to any tags dont show the clear button
 		document.getElementById("ClearBtn").style.visibility = "hidden";
 	}
  
 }
 
-// copied readCookie from stack overflow
+/* taken readCookie from stack overflow
+http://stackoverflow.com/questions/10730362/get-cookie-by-name*/
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -82,26 +100,28 @@ function readCookie(name) {
     }
     return null;
 }
-
+//javascript to add a tag to the subscribed list
 function addTag()
 {
-	
+	//get a current time stamp for the expirey date
 	var d = new Date();
     d.setTime(d.getTime() + (3*365*24*60*60*1000));
+	//expires 3 years from now
 	var expires = "expires ="+ d.toGMTString();
+	//get the tag the user has just subscribed too
 	var newTag = document.getElementById("tag").value;
 	var tags = readCookie('tags'); 
+	//if the cookie "tags" is not set, create it and add the users tag too it
 	if(!tags)
 	{
-		document.cookie = "tags = "+newTag+","+";"+expires+";";
-	    tags = readCookie('tags'); 
+		document.cookie = "tags = "+newTag+",;"+expires+";";
 	    location.reload();
 	}else{
-	 tags = tags+","+newTag;
-     document.cookie = "tags = "+tags+";"+expires+";";
-	 location.reload();	
-  
-	}
+	    //otherwise concat the the new tag to the rest of the tags
+		tags = tags+","+newTag;
+        document.cookie = "tags = "+tags+";"+expires+";";
+	    location.reload();	
+    }
 }
 </script>
 <html>
@@ -173,6 +193,7 @@ function addTag()
 									   
 									   <datalist id="fields">
 									   <?php
+									   //php to get a list of all the tags in the database
 									   $numberOfFields = 0;
 									   $sql = "SELECT text FROM `tags`";
 									   $result = mysqli_query($connect,$sql);
@@ -180,6 +201,7 @@ function addTag()
 									   $names = mysqli_fetch_array($result);
                                                           for($i = 0; $i <$numberOfFields;$i++){	
                                                            ?>
+									   <!--Dropdown menu for the user to select from containing all tags-->
 									   <option value ="<?php echo $names[0]; ?>" >
                                                           <?php  $names = mysqli_fetch_array($result); }?>
 									  </datalist>
