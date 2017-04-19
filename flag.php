@@ -1,9 +1,11 @@
 <?php
 	include 'dbh.php';
 	$id = $_POST['flag'];
-	$sql = "SELECT * from tasks WHERE task_id = $id";
+	$sql = "SELECT * from user_details WHERE email = '".$_COOKIE['email']."'";
 	$result = mysqli_query($connect,$sql);
 	$row = mysqli_fetch_assoc($result);
+	$score = $row['reputation_score'] + 2;
+	$sql = "UPDATE user_details SET reputation_score = $score WHERE email ='".$_COOKIE['email']."'";
 	$user_id = $row['user_id'];
 	$sql = "SELECT * from task_claims WHERE task_id = $id";
 	$result = mysqli_query($connect,$sql);
