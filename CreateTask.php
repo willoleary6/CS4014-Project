@@ -1,19 +1,10 @@
 <!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>CreateTask</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<script type='text/javascript'>
-        function addFields(){
+<!-- code written by Aidan Cleer -->
+<?php 
+    include 'cookieCheck.php';
+?>
+<script type='text/javascript'>
+function addFields(){
             // Number of inputs to create
             var number = document.getElementById("tag").value;
 			if(number > 0 && number < 5)
@@ -37,12 +28,17 @@
 			}
         }
     </script>
-	
-	</head>
+<html>
+	<head>
+		<title>Create task</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    </head>
 	<body class="no-sidebar">
-	<?php include 'cookieCheck.php';
-	?>
-		<div id="page-wrapper">
+	    <div id="page-wrapper">
 
 			<!-- Header -->
 				<div id="header-wrapper">
@@ -68,51 +64,58 @@
 									
 								</ul>
 							</nav>
-
-					</div>
+                    </div>
 				</div>
 
 			<!-- Main -->
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
-                           <form action = "Task.php" method ="POST" enctype="multipart/form-data">
-						   
-                            Task Title:<br>
-                            <input type="text" name="TaskTitle" required><br>
-							Enter Type of task:<br>
-                            <input type="text" name="TaskType" required><br>
-							Number of pages in document:<br>
-                            <input type="text" name="NumOfPages" required><br>
-							Number of words in document:<br>
-                            <input type="text" name="NumOfWords" required><br>
+                           <!-- Users fill out this form when they wish to create a task -->
+						   <form action = "Task.php" method ="POST" enctype="multipart/form-data">
+						    
+							    Task Title:<br>
+								<input type="text" name="TaskTitle" required><br>
 							
-							Enter number of tags you would like to add(Max: 4):<br>
-							<input type="number" id="tag" name="Tags" min="0" max="4" ><br>
-							<div id="container">
-								<button href="#" id="filldetails" onclick="addFields()">Add Tags</button>	
-							</div>
-							<br>
-							Description:<br>
-                            <textarea type="textarea" name="Description" rows="5" required></textarea><br>	
+								Enter Type of task:<br>
+								<input type="text" name="TaskType" required><br>
+							
+								Number of pages in document:<br>
+								<input type="text" name="NumOfPages" required><br>
+							
+								Number of words in document:<br>
+								<input type="text" name="NumOfWords" required><br>
+							
+								Enter number of tags you would like to add(Max: 4):<br>
+								<input type="number" id="tag" name="Tags" min="0" max="4" ><br>
+								<div id="container">
+									<button href="#" id="filldetails" onclick="addFields()">Add Tags</button>	
+								</div>
+								<br>
+							
+								Description:<br>
+								<textarea type="textarea" name="Description" rows="5" required></textarea><br>	
                 
-							Enter Claim By Deadline:<br>
-							<input type="datetime-local" name="ClaimBy" min="2017-03-01"><br>
-							<br>
-							Enter Completion Deadline:<br>
-  							<input type="datetime-local" name="Completion" min="2017-03-01"><br>
+								Enter Claim By Deadline:<br>
+								<input type="datetime-local" name="ClaimBy" min="2017-03-01"><br>
+								<br>
 							
-							<br>
-							Please Specify file type eg(.docx,.pdf):<br>
-                            <input type="text" name="FileType" required><br>
-							<br>
-                            Choose Sample File
-							<input id="fileToUpload" name="fileToUpload" type="file" required><br>
+								Enter Completion Deadline:<br>
+								<input type="datetime-local" name="Completion" min="2017-03-01"><br>
+								<br>
+							
+								Please Specify file type eg(.docx,.pdf):<br>
+								<input type="text" name="FileType" required><br>
+								<br>
+                            
+								Choose Sample File
+								<input id="fileToUpload" name="fileToUpload" type="file" required><br>
 						
-							<br>
-							<input type="submit" value="Submit">
-							<p>&nbsp;</p>
-							 </form>
+								<br>
+								<!-- On submission the details will be sent to Task.php for processing-->
+								<input type="submit" value="Submit">
+								<p>&nbsp;</p>
+							</form>
 						</div>
 					</div>
 				</div>

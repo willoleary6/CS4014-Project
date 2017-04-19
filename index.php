@@ -1,13 +1,8 @@
 <!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-
+<!-- code written by Aaron Dunne and William O'Leary -->
 <html>
-	<head>
-		<title>Landing page</title>
+    <head>
+	    <title>CS4014 Group 8</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -17,27 +12,28 @@
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
-
+            
 			<!-- Header -->
+			
 			<div id="header-wrapper">
 				<div id="header" class="container">
-
+                    
 					<!-- Logo -->
+					
 					<h1 id="logo"><a href="index.html">Welcome</a></h1>
 					<p>Please login or register.</p>
 				</div>
 			</div>
-
+            
 			<!-- Main -->
+			
 			<div id="main-wrapper">
 				<div id="main" class="container">
 					<div id="content">
 						<div class="row">
 							<div class="6u 12u(mobile)">
 								<section>
-									<div id="features-wrapper">
-										<h2><strong>Login</strong></h2>
-									</div>
+									<h2><strong>Login</strong></h2>
 									<form method="post" action="login.php">
 										E-mail<br>
 										<input type="email" name="email" required><br>
@@ -52,11 +48,9 @@
 							</div>
 							<div class="6u 12u(mobile)">
 								<section>
-									<div id="features-wrapper">
-										<header>
-											<h2><strong>Sign up today</strong></h2>
-										</header>
-									</div>
+									<header>
+										<h2><strong>Sign up today</strong></h2>
+							        </header>
 									<form action = "register.php" method ="POST" >
 										Firstname:<br>
 										<input type="text" name="firstName" required><br>
@@ -75,28 +69,32 @@
 										<datalist id="fields">
 										<?php
 											include 'dbh.php';
-										
-											$numberOfFields = 0;
+										    $numberOfFields = 0;
 											$sql = "SELECT subject_name FROM `major_subjects`";
 											$result = mysqli_query($connect,$sql);
 											$numberOfFields = mysqli_num_rows($result);						  
 											$names = mysqli_fetch_array($result);
-                                                          
-											for($i = 0; $i <$numberOfFields;$i++){	
+                                            for($i = 0; $i <$numberOfFields;$i++) {	
 										?>
-										<option value ="<?php echo $names[0]; ?>" >
-										<?php  $names = mysqli_fetch_array($result); }?>
-										</datalist>
-										Password:<br>
-										<input type="password" name="password" required><br>
-										Confirm Password:<br>
-										<input type="password" name="cpassword" required><br>
-										<div class="g-recaptcha" data-sitekey="6LeHgBoUAAAAADTe7a9J4JYYtsBgfVbaZjuBHlYT"></div><br>
-										<input type="submit" value="Submit" name="submit"><br>
-										<?php if (isset($_GET['CaptchaFail'])) { ?>
-										<b>*Could not register. Captcha failed</b><br>
-										<?php } ?>
-										<p>&nbsp;</p>
+										        <option value ="<?php echo $names[0]; ?>" >
+										        <?php  $names = mysqli_fetch_array($result); }?>
+										        </datalist>
+										        Password:<br>
+										        <input type="password" name="password" required><br>
+										        Confirm Password:<br>
+										        <input type="password" name="cpassword" required><br>
+										        <div class="g-recaptcha" data-sitekey="6LeHgBoUAAAAADTe7a9J4JYYtsBgfVbaZjuBHlYT">
+												</div>
+												
+												<br>
+										            
+												<input type="submit" value="Submit" name="submit"><br>
+										        <?php 
+											        if (isset($_GET['CaptchaFail'])) { ?>
+										                <b>*Could not register. Captcha failed</b><br>
+										        <?php 
+													} ?>
+										        <p>&nbsp;</p>
 									</form>
 								</section>
 							</div>
@@ -106,14 +104,16 @@
 			</div>
 
 			<!-- Footer -->
+			
 			<div id="copyright" class="container">
-				<ul class="links">
-					<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			    <ul class="links">
+				    <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 				</ul>
 			</div>
 		</div>
 
 		<!-- Scripts -->
+		
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.dropotron.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
