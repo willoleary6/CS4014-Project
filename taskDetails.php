@@ -122,6 +122,7 @@
 													File Type: <?php print($row['file_type'])?><p>
 											<ul class="divided">
 												<li>
+                                                  <form action="fileDownload.php" method = "POST">
 												  <input type = "hidden" name = "download" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Download Preview">
 							                      </form>
