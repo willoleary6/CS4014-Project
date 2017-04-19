@@ -39,13 +39,11 @@
   						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
   					}
   						
-  						//$sql = "SELECT subject_name FROM 'major_subjects' Where subject_id = '$subject_id'";
-  						$result = mysqli_query($connect, $sql);
-  						$row = $comments->fetch_assoc();
+  						//$sql = "SELECT subject_name FROM major_subjects Where subject_id = '$subject_id'";
+  						//$result = mysqli_query($connect, $sql);
+  						//$singleItem = $result->fetch_assoc();
   						
-  						$subject_name = $row['subject_name'];
-  						$subject_name = htmlspecialchars($row['subject_name'],ENT_QUOTES);
-  						
+  						//$subject_name = htmlspecialchars($singleItem['subject_name'],ENT_QUOTES);	
   						?>
 
 			<!-- Header -->
@@ -60,8 +58,8 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-cog" href="Edit.php"><span>Edit profile</span></a></li>
-									<li><a class="icon fa-cog" href="task stream.php"><span>Task stream</span></a></li>
+									<li><a class="icon fa-cog" href="editDetails.php"><span>Edit profile</span></a></li>
+									<li><a class="icon fa-cog" href="taskStream.php"><span>Task stream</span></a></li>
 									<li><a class="icon fa-retweet" href="logout.php"><span>Log out</span></a></li>
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
 								</ul>
@@ -82,14 +80,19 @@
    								 		User Name: $first_name $last_name<br />
    								 		Student/Staff ID: $student_staff_id<br >
 										Email: $email<br />
-										Subject: $subject_name<br />
+										
 										User Password: $password<br />
 								</div>";
+								//Subject: $subject_name<br />
  							?>
+ 							
+ 							
 												<p>&nbsp;</p>
-							<!-- User Tasks -->
+							<!-- User Created Tasks -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
 								<h2>Your Created Tasks</h2>
+								
+								
                                 <?php
 								$sql = "SELECT * from tasks WHERE user_id = $user_id";
 								$result = mysqli_query($connect,$sql);
@@ -115,8 +118,67 @@
 								</section>
 								<?php 
 								}?>
+								
+								
+								<!-- User Claimed Tasks -->
+								
+								<div id="content" class="8u 12u(mobile) important(mobile)">
+								<h2>Your Claimed Tasks</h2>
+								
+								
+                                <?php
+								$sql = "SELECT claim_id from taskStatus WHERE status_id = 2";
+								$result = mysqli_query($connect,$sql);
+								$i = 0;
+								While($claimIDS = $result->fetch_assoc())
+								{
+									$claim_ids[$i] = htmlspecialchars($claimIDS['claim_id'],ENT_QUOTES);
+									echo "  <div style='margin:30px 0px;'> $claim_ids[$i] </div>";
+									$i++;
+								}
+								
+								
+								for($b = 0; $b < sizeof($claim_ids);$b++)
+								{
+									$sql = "SELECT task_id from task_claims Where user_id = '$user_id' AND claim_id = '$claim_ids[$b]'";
+									$result = mysqli_query($connect,$sql);
+									$row = $result->fetch_assoc();
+									$taskClaim_ids[$b] = htmlspecialchars($row['task_id'],ENT_QUOTES);
+									echo "  <div style='margin:30px 0px;'> $taskClaim_ids[$b] </div>";
+								}
+								
+								
+								for($n = 0; $n < sizeof($taskClaim_ids); $n++)
+								{
+									$sql = "SELECT * FROM tasks WHERE task_id = '$taskClaim_ids[$n]'";
+									$result = mysqli_query($connect,$sql);
+									While($row = mysqli_fetch_assoc($result));
+									{
+										?>
+										<section>
+                                		<br>
+										<h2> task: <?php print($row['title']);
+                               			 ?> </h2>
+										<h3> Type: <?php print($row['task_type'])?>
+										<br>
+										Claim by: <?php print($row['claim_by_date'])?> </h3>
+										<p>Basic info about task: <?php print($row['text_description'])?> 
+										<br>
+										Number of pages: <?php print($row['no_of_pages'])?>
+										<br>
+										Number of words: <?php print($row['no_of_words'])?><p>
+										<form action="taskDetails.php" method ="post">
+										<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
+							    		<input type="submit" value="View details">
+							    		</form>
+										</section>
+									<?php	
+									}
+								}
+								?>
+					
 									
-								</div>
+							</div>
 						</div>						
 					</div>
 				</div>
