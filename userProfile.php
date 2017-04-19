@@ -152,7 +152,7 @@
 								{
 									$sql = "SELECT * FROM tasks WHERE task_id = '$taskClaim_ids[$n]'";
 									$result = mysqli_query($connect,$sql);
-									While($row = mysqli_fetch_assoc($result));
+									While($row = mysqli_fetch_assoc($result))
 									{
 										?>
 										<section>
