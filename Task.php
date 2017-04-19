@@ -22,7 +22,7 @@
 	        $Description = 	strip_tags($_POST['Description']);
 	        $ClaimBy = 		strip_tags($_POST['ClaimBy']);
 	        $Completion =	strip_tags($_POST['Completion']);
-	        $FileType = 	strip_tags($_POST['FileType']);
+	        //$FileType = 	strip_tags($_POST['FileType']);
 	        $id_1 = 1;
 	        $id_2 = 1;
 	        $id_3 = 1;
