@@ -40,11 +40,11 @@
 							<!-- User Tasks -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
 								<form action="comp&cancel.php" method ="post">
-								Description of work done:<br>
-                                <textarea type="textarea" name="Description" rows="5" required></textarea><br>
-								<input type = "hidden" name = "identifier" value = "1">
-								<input type = "hidden" name = "task_id" value = "<?php print $id?>">
-								<input type="submit" value="Submit">
+									Description of work done:<br>
+									<textarea type="textarea" name="Description" rows="5" required></textarea><br>
+									<input type = "hidden" name = "identifier" value = "1">
+									<input type = "hidden" name = "task_id" value = "<?php print $id?>">
+									<input type="submit" value="Submit">
 							    </form>
 								</section>	
 								</div>
