@@ -9,7 +9,7 @@
 		$result = mysqli_query($connect,$sql);
 		$row = mysqli_fetch_assoc($result);
 		$user_id = $row['user_id'];
-		$sql = "SELECT * from task_claims WHERE task_id = $id";
+		$sql = "SELECT * from task_claims WHERE task_id = $task_id";
 		$result = mysqli_query($connect,$sql);
 		$row = mysqli_fetch_assoc($result);
 		$sql = "UPDATE task_claims SET user_id = $user_id WHERE task_id ='".$row['task_id']."'";
@@ -27,7 +27,7 @@
 		$sql = "UPDATE user_details SET reputation_score = $score WHERE email ='".$_COOKIE['email']."'";
 		$result = mysqli_query($connect,$sql);
 		$user_id = $row['user_id'];
-		$sql = "SELECT * from task_claims WHERE task_id = $id";
+		$sql = "SELECT * from task_claims WHERE task_id = $task_id";
 		$result = mysqli_query($connect,$sql);
 		$row = mysqli_fetch_assoc($result);
 		$sql = "UPDATE task_claims SET user_id = $user_id WHERE task_id ='".$row['task_id']."'";

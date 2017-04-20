@@ -129,12 +129,12 @@
 												</li>
 												<li>
 												<form action="emailTemplate.php" method = "POST">
-												  <input type = "hidden" name = "claim" value = "<?php print($row['task_id'])?>">
+												  <input type = "hidden" name = "email" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Full File Request">
 							                    </form>
 												</li>
 												<li>
-												<form action="completion.php">
+												<form action="completion.php" method ="POST">
 												<!--the 1 is to tell the php script the task is to marked as complete -->
 												  <input type = "hidden" name = "id" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Mark as Complete">
