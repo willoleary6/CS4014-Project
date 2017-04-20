@@ -133,7 +133,7 @@
 								While($claimIDS = $result->fetch_assoc())
 								{
 									$claim_ids[$i] = htmlspecialchars($claimIDS['claim_id'],ENT_QUOTES);
-									echo "  <div style='margin:30px 0px;'> $claim_ids[$i] </div>";
+									//echo "  <div style='margin:30px 0px;'> $claim_ids[$i] </div>";
 									$i++;
 								}
 								
@@ -144,7 +144,7 @@
 									$result = mysqli_query($connect,$sql);
 									$row = $result->fetch_assoc();
 									$taskClaim_ids[$b] = htmlspecialchars($row['task_id'],ENT_QUOTES);
-									echo "  <div style='margin:30px 0px;'> $taskClaim_ids[$b] </div>";
+									//echo "  <div style='margin:30px 0px;'> $taskClaim_ids[$b] </div>";
 								}
 								
 								
@@ -167,7 +167,7 @@
 										Number of pages: <?php print($row['no_of_pages'])?>
 										<br>
 										Number of words: <?php print($row['no_of_words'])?><p>
-										<form action="taskDetails.php" method ="post">
+										<form action="claimedTasks.php" method ="post">
 										<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
 							    		<input type="submit" value="View details">
 							    		</form>
