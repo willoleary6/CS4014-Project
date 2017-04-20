@@ -122,12 +122,13 @@
 													File Type: <?php print($row['file_type'])?><p>
 											<ul class="divided">
 												<li>
-                                                  <form action="userProfile.php">
+                                                  <form action="fileDownload.php" method = "POST">
+												  <input type = "hidden" name = "download" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Download Preview">
 							                      </form>
 												</li>
 												<li>
-												<form action="Claim.php" method = "POST">
+												<form action="emailTemplate.php" method = "POST">
 												  <input type = "hidden" name = "claim" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Full File Request">
 							                    </form>
