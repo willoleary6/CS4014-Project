@@ -1,4 +1,5 @@
 <?php
+	// written by Aidan Cleere
 	include 'dbh.php';
 	$identifier = $_POST['identifier'];
 	$task_id = $_POST['task_id'];
@@ -36,4 +37,3 @@
 		$result = mysqli_query($connect,$sql);
 		header("location: userProfile.php");
 	}
-?>
