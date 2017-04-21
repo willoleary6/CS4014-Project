@@ -51,7 +51,7 @@ function addFields(){
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a class="icon fa-home" href="task stream.php"><span>Task Stream</span></a></li>
+									<li><a class="icon fa-home" href="tasktream.php"><span>Task Stream</span></a></li>
 									<li>
 										<a href="#" class="icon fa-bar-chart-o"><span>Dropdown</span></a>
 										<ul>

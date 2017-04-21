@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <!--
+	written by Aidan Cleere
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
@@ -122,18 +123,19 @@
 													File Type: <?php print($row['file_type'])?><p>
 											<ul class="divided">
 												<li>
-                                                  <form action="userProfile.php">
+                                                  <form action="fileDownload.php" method = "POST">
+												  <input type = "hidden" name = "download" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Download Preview">
 							                      </form>
 												</li>
 												<li>
-												<form action="Claim.php" method = "POST">
-												  <input type = "hidden" name = "claim" value = "<?php print($row['task_id'])?>">
+												<form action="emailTemplate.php" method = "POST">
+												  <input type = "hidden" name = "email" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Full File Request">
 							                    </form>
 												</li>
 												<li>
-												<form action="completion.php">
+												<form action="completion.php" method ="POST">
 												<!--the 1 is to tell the php script the task is to marked as complete -->
 												  <input type = "hidden" name = "id" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Mark as Complete">
