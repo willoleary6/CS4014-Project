@@ -19,6 +19,44 @@ function checkForm(form) {
     // validation was successful
     return true;
 }
+function passwordValidation() { 
+	//boolean array to check if the password meets all criteria 
+	var valid = [false,false,false];
+	// getting the submitted passwords
+	var password = document.getElementById("password").value;
+	var confPassword = document.getElementById("cpassword").value;
+	var character;
+    var i;
+	/*for loop checking each character of the password
+	to be sure it meets the minimum requirements
+	(at least 1 lowercase, 1 uppercase letter, 1 number 
+	and at least 8 characters)*/
+	for(i = 0; i < password.length; i++) {
+        character = password.charAt(i);
+        if(!isNaN(character)) {
+		    valid[0] = true;
+		}else if(character == character.toLowerCase()) {
+		    valid[1] = true;
+		}else if(character == character.toUpperCase()) {
+			valid[2] = true;
+		}
+	}
+	/*checks if all criteria are met, 
+	if not throws an appropriate error message*/
+	if(valid[0] == true && valid[1] == true && valid[2] == true) {
+        if(password.length >= 8) {
+			if(password == confPassword){
+				document.update.submit();
+            }else{
+				alert("Error: Password and confirm password do not match");
+		    }
+        }else{
+			alert("Error: Password must be at least 8 characters long");
+		}            
+	}else{
+		alert("Error: Password must contain at least one uppercase, one lowercase letter and a number");
+	}
+}
 </script>
 <html>
 	<head>
@@ -78,7 +116,7 @@ function checkForm(form) {
 						
 							
 								<!-- input fields for the user to edit their information -->
-                                <form action = "editProcess.php" method ="POST">
+                                <form action = "editProcess.php" name = "update" method ="POST">
 										Firstname:<?php echo ' '.$first_name;?><br>
 										<input type="text" name="EditFN" required><br>
 										LastName:<?php echo ' '.$last_name;?><br>
@@ -87,9 +125,16 @@ function checkForm(form) {
 										<input type="number" name="EditSTID" required><br>
 										E-mail:<?php echo ' '.$email;?><br>
 										<input type="email" name="EditEmail" autocomplete="off" required>
-										<?php if (isset($_GET['EmailFail'])) { ?>
-										<b>*Must have the domain 'studentmail.ul.ie' or 'ul.ie'</b>
-										<?php } ?>
+										<?php if (isset($_GET['EmailFail'])) { 
+										?>
+										<b>*Must have the domain 'studentmail.ul.ie' or 'ul.ie'</b><br>
+										<?php 
+										    }else if(isset($_GET['EmailInUse'])){
+										?>	 
+											 <b>*Email already in use.</b><br>
+										<?php    
+											}
+										?>
 										<br>
 										Field:<br>
 										<input list="fields" name="browser" required><br>
@@ -103,16 +148,20 @@ function checkForm(form) {
 											$names = mysqli_fetch_array($result);
                                             for($i = 0; $i <$numberOfFields;$i++) {	
 										?>
-										        <option value ="<?php echo $names[0]; ?>" >
-										        <?php  $names = mysqli_fetch_array($result); }?>
-										        </datalist>
-										        Password:<br>
-										        <input type="password" name="EditPassword" required><br>
-										        Confirm Password:<br>
-										        <input type="password" name="cpassword" required><br>
-										         <br>
-										            
-												<input type="submit" value="Submit" name="submit"><br>
+										    <option value ="<?php echo $names[0]; ?>" >
+										<?php  $names = mysqli_fetch_array($result); 
+										    }
+										?>
+										</datalist>
+										<?php if (isset($_GET['FieldFail'])) { ?>
+										<b>*Error you have not chosen a valid field</b><br>
+										<?php } ?>
+										Password:<br>
+										<input type="password" id ="password" required><br>
+										Confirm Password:<br>
+										<input type="password" id ="cpassword" required><br>
+										<br>
+										<button type="button" onclick = "javascript:passwordValidation();">Update</button>
 										     
 										        <p>&nbsp;</p>
 									</form>

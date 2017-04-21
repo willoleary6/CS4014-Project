@@ -5,17 +5,7 @@
     include 'dbh.php';
     include 'sortList.php';
     include 'cookieCheck.php';
-	// selecting all the tasks that are unclaimed
-    $sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '1'";
-    $result = mysqli_query($connect,$sql);
-    $index = 0;
-    // if there are any unclaimed tasks on the website
-    if(mysqli_num_rows($result) > 0 ) {
-        while($array = mysqli_fetch_array($result)) {
-            $claims[$index] = $array['claim_id'];
-            $index++;
-        }
-    }
+	
 
     // function to find the text of each tag id provided
     function findTag($tag_id) {
@@ -64,7 +54,8 @@
 	    /*calls to the sorter file which arranges the tasks by 
 		date closest to present time and figures out which tasks
 		are out of date*/
-		$task = sorter();
+		$status = 1;
+		$task = sorter($status);
 	    //if the variable task Not empty print the tasks
 		if(!($task == NULL)) {
 	        //for loop dealing with each task respectively

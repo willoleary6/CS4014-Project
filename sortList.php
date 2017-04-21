@@ -1,9 +1,9 @@
 <?php
-    function sorter() { 
+    function sorter($status) { 
         //written by William O'Leary - 15155528
 		include 'dbh.php';
 		// sql statement to return all unclaimed tasks from the database
-		$sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '1'";
+		$sql = "SELECT claim_id FROM `taskStatus` WHERE status_id = '$status'";
 		$result = mysqli_query($connect,$sql);
 		$index = 0;
 		//if the sql statement returns a valid result

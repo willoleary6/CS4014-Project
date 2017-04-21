@@ -10,10 +10,12 @@
 	    // sql statement to check if the email and password cookies are in the database 
 	    $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($connect,$sql);
-        /*if credentials are invalid program redirects to clear cookies 
+        $row = $result -> fetch_assoc();
+		/*if credentials are invalid program redirects to clear cookies 
 		through logout.php and sends user back to index.php*/
-	    if(!$row = $result -> fetch_assoc()) {
-            header("location: logout.php");
+	    if((!$row )|| $row['banned'] == '1') {
+            echo '<script type="text/javascript">alert("Error: Credentials are not valid")</script>';
+			header("location: logout.php");
         }else {    
             /*if the creditentials are legitimate then the user will automatically 
 			be sent to there profile page*/
@@ -26,12 +28,15 @@
 	    $password = strip_tags($_POST['password']);
 	    $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
 	    $result = mysqli_query($connect,$sql);
-	    if(!$row = $result -> fetch_assoc()) {
+		$row = $result -> fetch_assoc();
+	    if(!$row || $row['banned'] == '1') {
              echo "<script> alert('Error you have not entered valid credentials.');
              window.location.href='index.php';
              </script>";
         }else {
-		    setcookie('userID',$row[user_id],time() + (86400 * 30));
+		    //setting the cookies that the website will use in functions such as auto login
+			setcookie('RepScore',$row[reputation_score],time() + (86400 * 30));
+			setcookie('userID',$row[user_id],time() + (86400 * 30));
 		    setcookie('email',$email ,time() + (86400 * 30));
 		    setcookie('password',$password ,time() + (86400 * 30));
 		    header('Location: userProfile.php');
