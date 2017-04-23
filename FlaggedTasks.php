@@ -31,21 +31,21 @@
 					
 					<br>
 					
-					<h2> task: <?php print($row['title']);?> </h2>
-					<h3> Type: <?php print($row['task_type'])?>
+					<h2> task: <?php print(htmlspecialchars($row['title'], ENT_QUOTES));?> </h2>
+					<h3> Type: <?php print(htmlspecialchars($row['task_type'], ENT_QUOTES));?>
 					
 					<br>
 					
-					Claim by: <?php print($row['claim_by_date'])?> </h3>
-					<p>Basic info about task: <?php print($row['text_description'])?>
+					Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES));?> </h3>
+					<p>Basic info about task: <?php print(htmlspecialchars($row['text_description'], ENT_QUOTES));?>
 					
 					<br>
 					
-					Number of pages: <?php print($row['no_of_pages'])?>
+					Number of pages: <?php print(htmlspecialchars($row['no_of_pages'], ENT_QUOTES));?>
 					
 					<br>
 					
-					Number of words: <?php print($row['no_of_words'])?></p>
+					Number of words: <?php print(htmlspecialchars($row['no_of_words'], ENT_QUOTES));?></p>
 					<form action="taskDetails.php" method ="post">
 					<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
 					<input type="submit" value="View details">

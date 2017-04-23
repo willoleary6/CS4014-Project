@@ -17,7 +17,7 @@
 	$sql = "SELECT * from tags WHERE tag_id = $tag_id";
 	$resultTag = mysqli_query($connect,$sql);
 	$tagRow = mysqli_fetch_assoc($resultTag);
-	print($tagRow['text']);
+	print(htmlspecialchars($tagRow['text'], ENT_QUOTES));
 	}
 	function creatorDetails($idNumber) {
 		include 'dbh.php';
@@ -53,7 +53,7 @@ function isMod() {
 
 <html>
 	<head>
-		<title><?php print($row['title']);?></title>
+		<title><?php print(htmlspecialchars($row['title'], ENT_QUOTES));?></title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -68,9 +68,9 @@ function isMod() {
 					<div id="header" class="container">
 
 						<!-- Logo -->
-							<h1 id="logo"><a><?php print($row['title'])?></a></h1>
+							<h1 id="logo"><a><?php print(htmlspecialchars($row['title'], ENT_QUOTES));?></a></h1>
 							<br>
-							<h2>Published by: <?php print($creator['first_name'].' '.$creator['last_name'])?></h2>
+							<h2>Published by: <?php print(htmlspecialchars($creator['first_name'], ENT_QUOTES).' '.htmlspecialchars($creator['last_name'], ENT_QUOTES))?></h2>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -138,16 +138,16 @@ function isMod() {
                                                  
 													<section>
 													<h3>
-													Type: <?php print($row['task_type'])?>
+													Type: <?php print(htmlspecialchars($row['task_type'], ENT_QUOTES))?>
 													<br>
-													Claim by: <?php print($row['claim_by_date'])?> 
+													Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES))?> 
 													<br>
-													DeadLine Date: <?php print($row['Deadline'])?></h3>
-													<p>Description: <?php print($row['text_description'])?> 
+													DeadLine Date: <?php print(htmlspecialchars($row['Deadline'], ENT_QUOTES))?></h3>
+													<p>Description: <?php print(htmlspecialchars($row['text_description'], ENT_QUOTES))?> 
 													<br>
-													Number of pages: <?php print($row['no_of_pages'])?>
+													Number of pages: <?php print(htmlspecialchars($row['no_of_pages'], ENT_QUOTES))?>
 													<br>
-													Number of words: <?php print($row['no_of_words'])?>
+													Number of words: <?php print(htmlspecialchars($row['no_of_words'], ENT_QUOTES))?>
 													<br>
 													Tag no.1: <?php if($row['tag_1'] != "1")
 																	findTag($row['tag_1']);
@@ -165,7 +165,7 @@ function isMod() {
 																	findTag($row['tag_4']);
 																	else print("No associated tag");?>
 													<br>
-													File Type: <?php print($row['file_type'])?><p>
+													File Type: <?php print($row['file_type'], ENT_QUOTES))?><p>
 											
 													</section>												  
 									

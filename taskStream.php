@@ -6,6 +6,17 @@
     include 'sortList.php';
     include 'cookieCheck.php';
 	
+	//php to get a list of all the tags in the database
+	$numberOfFields = 0;
+	$sql = "SELECT text FROM `tags`";
+	$result = mysqli_query($connect,$sql);
+	$numberOfFields = mysqli_num_rows($result);						  
+	$names;
+	$temp;
+	for($j = 0; $j <$numberOfFields; $j++) {
+		$temp = mysqli_fetch_assoc($result);
+		$names[$j] = $temp['text'];
+	}
 
     // function to find the text of each tag id provided
     function findTag($tag_id) {
@@ -74,21 +85,21 @@
 					
 					<br>
 					
-					<h2> task: <?php print($row['title']);?> </h2>
-					<h3> Type: <?php print($row['task_type'])?>
+					<h2> task: <?php print(htmlspecialchars($row['title'], ENT_QUOTES));?> </h2>
+					<h3> Type: <?php print(htmlspecialchars($row['task_type'], ENT_QUOTES))?>
 					
 					<br>
 					
-					Claim by: <?php print($row['claim_by_date'])?> </h3>
-					<p>Basic info about task: <?php print($row['text_description'])?>
+					Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES))?> </h3>
+					<p>Basic info about task: <?php print(htmlspecialchars($row['text_description'], ENT_QUOTES))?>
 					
 					<br>
 					
-					Number of pages: <?php print($row['no_of_pages'])?>
+					Number of pages: <?php print(htmlspecialchars($row['no_of_pages'], ENT_QUOTES))?>
 					
 					<br>
 					
-					Number of words: <?php print($row['no_of_words'])?></p>
+					Number of words: <?php print(htmlspecialchars($row['no_of_words'], ENT_QUOTES))?></p>
 					<form action="taskDetails.php" method ="post">
 					<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
 					<input type="submit" value="View details">
@@ -101,7 +112,7 @@
 		}else {
            ?>
 	        <h2>NO TASKS TO SHOW</h2>
-           <?php
+           <?php 
 	    }
     }
 ?>
@@ -148,25 +159,40 @@ function readCookie(name) {
 }
 //javascript to add a tag to the subscribed list
 function addTag() {
-	//get a current time stamp for the expirey date
-	var d = new Date();
-    d.setTime(d.getTime() + (3*365*24*60*60*1000));
-	//expires 3 years from now
-	var expires = "expires ="+ d.toGMTString();
-	//get the tag the user has just subscribed too
+	var listOfTags = <?php echo json_encode($names);?>;
 	var newTag = document.getElementById("tag").value;
-	var tags = readCookie('tags'); 
-	//if the cookie "tags" is not set, create it and add the users tag too it
-	if(!tags) {
-		document.cookie = "tags = "+newTag+",;"+expires+";";
-	    location.reload();
+	var valid = false;
+	var i = 0;
+	while(valid == false && i < listOfTags.length) {
+		if(listOfTags[i] == newTag) {
+			valid = true;
+		}
+		i++;
+	}
+	if(valid == false){
+		alert("Error: Not a valid tag");
 	}else {
-	    //otherwise concat the the new tag to the rest of the tags
-		tags = tags+","+newTag;
-        document.cookie = "tags = "+tags+";"+expires+";";
-	    location.reload();	
+		//get a current time stamp for the expirey date
+		var d = new Date();
+		d.setTime(d.getTime() + (3*365*24*60*60*1000));
+		//expires 3 years from now
+		var expires = "expires ="+ d.toGMTString();
+		//get the tag the user has just subscribed too
+		var newTag = document.getElementById("tag").value;
+		var tags = readCookie('tags'); 
+		//if the cookie "tags" is not set, create it and add the users tag too it
+		if(!tags) {
+			document.cookie = "tags = "+newTag+",;"+expires+";";
+			location.reload();
+		}else {
+			//otherwise concat the the new tag to the rest of the tags
+			tags = tags+","+newTag;
+			document.cookie = "tags = "+tags+";"+expires+";";
+			location.reload();	
+		}
     }
 }
+
 </script>
 
 
@@ -217,19 +243,14 @@ function addTag() {
 										   <input list="fields" id = "tag" name="tags" required><br>
 									       <datalist id="fields">
 									       <?php
-										        //php to get a list of all the tags in the database
-												$numberOfFields = 0;
-												$sql = "SELECT text FROM `tags`";
-												$result = mysqli_query($connect,$sql);
-												$numberOfFields = mysqli_num_rows($result);						  
-												$names = mysqli_fetch_array($result);
+										        
 												for($i = 0; $i <$numberOfFields;$i++) {	
                                             ?>
-									                <!--Dropdown menu for the user to select from containing all tags-->
-									                <option value ="<?php echo $names[0]; ?>" >
-                                                    <?php  $names = mysqli_fetch_array($result); 
-											    }
-										            ?>
+									            <!--Dropdown menu for the user to select from containing all tags-->
+												<option value ="<?php echo "$names[$i]";?>">
+                                                    <?php  
+												}
+													?>
 										    </datalist>
 									            <input type="submit" value="Subscribe">	
 							                    <div id="container">

@@ -117,13 +117,13 @@ function passwordValidation() {
 							
 								<!-- input fields for the user to edit their information -->
                                 <form action = "editProcess.php" name = "update" method ="POST">
-										Firstname:<?php echo ' '.$first_name;?><br>
+										Firstname:<?php echo ' '.htmlspecialchars($first_name, ENT_QUOTES, 'UTF-8');?><br>
 										<input type="text" name="EditFN" required><br>
-										LastName:<?php echo ' '.$last_name;?><br>
+										LastName:<?php echo ' '.htmlspecialchars($last_name, ENT_QUOTES, 'UTF-8');?><br>
 										<input type="text" name="EditLN" required><br>
-										Student/Staff ID number:<?php echo ' '.$student_staff_id;?><br>
+										Student/Staff ID number:<?php echo ' '.htmlspecialchars($student_staff_id, ENT_QUOTES, 'UTF-8');?><br>
 										<input type="number" name="EditSTID" required><br>
-										E-mail:<?php echo ' '.$email;?><br>
+										E-mail:<?php echo ' '.htmlspecialchars($email, ENT_QUOTES, 'UTF-8');?><br>
 										<input type="email" name="EditEmail" autocomplete="off" required>
 										<?php if (isset($_GET['EmailFail'])) { 
 										?>
@@ -148,7 +148,7 @@ function passwordValidation() {
 											$names = mysqli_fetch_array($result);
                                             for($i = 0; $i <$numberOfFields;$i++) {	
 										?>
-										    <option value ="<?php echo $names[0]; ?>" >
+										    <option value ="<?php echo htmlspecialchars($names[0], ENT_QUOTES, 'UTF-8'); ?>" >
 										<?php  $names = mysqli_fetch_array($result); 
 										    }
 										?>
@@ -157,7 +157,7 @@ function passwordValidation() {
 										<b>*Error you have not chosen a valid field</b><br>
 										<?php } ?>
 										Password:<br>
-										<input type="password" id ="password" required><br>
+										<input type="password" id ="password" name = "EditPassword" required><br>
 										Confirm Password:<br>
 										<input type="password" id ="cpassword" required><br>
 										<br>

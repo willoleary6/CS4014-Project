@@ -1,10 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Strongly Typed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Bernard Steemers - 15182819
--->
+<!--Code Written by bernard Steemers-->
 <html>
 	<head>
 		<title>[User Profile]</title>
@@ -16,46 +11,29 @@
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
-
-			<?php
- 					include 'dbh.php';
- 					include 'cookieCheck.php';
- 					
- 					$email = $_COOKIE['email'];
-	 				$password = $_COOKIE['password'];
- 					
- 					$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
- 					$comments = mysqli_query($connect, $sql);
- 					
- 					while($row = $comments->fetch_assoc()) 
- 					{
-  						$user_id = htmlspecialchars($row['user_id'],ENT_QUOTES);
-  						$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
- 						$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
-  						$student_staff_id = htmlspecialchars($row['student_staff_id'],ENT_QUOTES);
-  						$email = htmlspecialchars($row['email'],ENT_QUOTES);
-  						$subject_id = htmlspecialchars($row['subject_id'],ENT_QUOTES);
-  						$password = htmlspecialchars($row['password'],ENT_QUOTES);
-  						$reputation_score = htmlspecialchars($row['reputation_score'],ENT_QUOTES);
-  					}
-  						
-  						//$sql = "SELECT subject_name FROM major_subjects Where subject_id = '$subject_id'";
-  						//$result = mysqli_query($connect, $sql);
-  						//$singleItem = $result->fetch_assoc();
-  						
-  						//$subject_name = htmlspecialchars($singleItem['subject_name'],ENT_QUOTES);	
-  						?>
-
-			<!-- Header -->
-				<div id="header-wrapper">
-					<div id="header" class="container">
-
-						<!-- Logo -->
-							<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
-							<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
-							<p>Welcome, please view any tasks you have created or claimed here.</p>
-
-						<!-- Nav -->
+            <?php
+ 				include 'dbh.php';
+ 				include 'cookieCheck.php';
+ 				$email = $_COOKIE['email'];
+	 			$password = $_COOKIE['password'];
+				$reputation_score = $_COOKIE['RepScore'];
+ 				$user_id = $_COOKIE['userID']; 
+				//getting the users name and reputation
+				$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
+ 				$comments = mysqli_query($connect, $sql);
+ 				while($row = $comments->fetch_assoc()) {
+  					$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
+ 					$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
+  				}
+  		    ?>
+            <!-- Header -->
+			<div id="header-wrapper">
+				<div id="header" class="container">
+					<!-- Logo -->
+						<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
+						<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
+						<p>Welcome, please view any tasks you have created or claimed here.</p>
+                        <!-- Nav -->
 							<nav id="nav">
 								<ul>
 									<li><a class="icon fa-cog" href="editDetails.php"><span>Edit profile</span></a></li>
@@ -64,127 +42,126 @@
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
 								</ul>
 							</nav>
-
-					</div>
 				</div>
-
-			<!-- Main -->
+			</div>
+            <!-- Main -->
 				<div id="main-wrapper">
 					<div id="main" class="container">
 						<div id="content">
-							
-							<?php
-  						
-  						echo "  <div style='margin:30px 0px;'>
-   								 		User ID: $user_id<br /><br >
-   								 		User Name: $first_name $last_name<br />
-   								 		Student/Staff ID: $student_staff_id<br >
-										Email: $email<br />
-										
-										User Password: $password<br />
-								</div>";
-								//Subject: $subject_name<br />
- 							?>
- 							
- 							
-												<p>&nbsp;</p>
+							<div class="row">
 							<!-- User Created Tasks -->
-								<div id="content" class="8u 12u(mobile) important(mobile)">
-								<h2>Your Created Tasks</h2>
-								
-								
-                                <?php
-								$sql = "SELECT * from tasks WHERE user_id = $user_id";
-								$result = mysqli_query($connect,$sql);
-								While($row = mysqli_fetch_assoc($result))
-								{
-								?>
-								<section>
-                                <br>
-								<h2> task: <?php print($row['title']);
-                                ?> </h2>
-								<h3> Type: <?php print($row['task_type'])?>
-								<br>
-								Claim by: <?php print($row['claim_by_date'])?> </h3>
-								<p>Basic info about task: <?php print($row['text_description'])?> 
-								<br>
-								Number of pages: <?php print($row['no_of_pages'])?>
-								<br>
-								Number of words: <?php print($row['no_of_words'])?><p>
-								<form action="taskDetails.php" method ="post">
-								<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
-							    <input type="submit" value="View details">
-							    </form>
-								</section>
-								<?php 
-								}?>
-								
-								
+								<div class="6u 12u(mobile)">
+									<section>
+										<h2>Your Created Tasks</h2>
+									</section>
+									<?php
+										// selecting all the information from the tasks the user has created
+										$sql = "SELECT * from tasks WHERE user_id = $user_id";
+										$result = mysqli_query($connect,$sql);
+										While($row = mysqli_fetch_assoc($result))
+										{
+									     $id = $row['task_id'];
+										 $sql = "SELECT status 
+										         FROM status a 
+												 JOIN taskStatus b 
+												 ON a.status_id = b.status_id 
+												 JOIN task_claims c 
+												 ON b.claim_id = c.claim_id 
+												 where c.task_id = $id ";
+										$CurStat = mysqli_query($connect,$sql);
+										$Status = mysqli_fetch_assoc($CurStat);
+												 
+									?>
+											<section>
+											<br>
+											<h2> task: <?php print(htmlspecialchars($row['title'], ENT_QUOTES));
+											 ?> </h2>
+											<h3> Type: <?php print(htmlspecialchars($row['task_type'], ENT_QUOTES))?>
+											<br>
+											Current Status: <?php print($Status['status'])?>
+											<br>
+											Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES))?> </h3>
+											<p>Basic info about task: <?php print(htmlspecialchars($row['text_description'], ENT_QUOTES))?> 
+											<br>
+											Number of pages: <?php print(htmlspecialchars($row['no_of_pages'], ENT_QUOTES))?>
+											<br>
+											Number of words: <?php print(htmlspecialchars($row['no_of_words'], ENT_QUOTES))?><p>
+											<form action="claimedTasks.php" method ="post">
+											<input type = "hidden" name ="text" value = "<?php print(htmlspecialchars($row['task_id'], ENT_QUOTES))?>">
+											<input type="submit" value="View details">
+											</form>
+											</section>
+									<?php 
+										}?>
+								</div>
 								<!-- User Claimed Tasks -->
-								
-								<div id="content" class="8u 12u(mobile) important(mobile)">
-								<h2>Your Claimed Tasks</h2>
-								
-								
-                                <?php
-								$sql = "SELECT claim_id from taskStatus WHERE status_id = 2";
-								$result = mysqli_query($connect,$sql);
-								$i = 0;
-								While($claimIDS = $result->fetch_assoc())
-								{
-									$claim_ids[$i] = htmlspecialchars($claimIDS['claim_id'],ENT_QUOTES);
-									//echo "  <div style='margin:30px 0px;'> $claim_ids[$i] </div>";
-									$i++;
-								}
-								
-								
-								for($b = 0; $b < sizeof($claim_ids);$b++)
-								{
-									$sql = "SELECT task_id from task_claims Where user_id = '$user_id' AND claim_id = '$claim_ids[$b]'";
+								<div class="6u 12u(mobile)">
+									<section>
+									<h2>Your Claimed Tasks</h2>
+									</section>
+								<?php
+									// selecting all the information from the tasks the user has created
+									$sql = "SELECT claim_id from taskStatus WHERE status_id = 2";
 									$result = mysqli_query($connect,$sql);
-									$row = $result->fetch_assoc();
-									$taskClaim_ids[$b] = htmlspecialchars($row['task_id'],ENT_QUOTES);
-									//echo "  <div style='margin:30px 0px;'> $taskClaim_ids[$b] </div>";
-								}
-								
-								
-								for($n = 0; $n < sizeof($taskClaim_ids); $n++)
-								{
-									$sql = "SELECT * FROM tasks WHERE task_id = '$taskClaim_ids[$n]'";
-									$result = mysqli_query($connect,$sql);
-									While($row = mysqli_fetch_assoc($result))
+									$i = 0;
+									While($claimIDS = $result->fetch_assoc())
 									{
-										?>
-										<section>
-                                		<br>
-										<h2> task: <?php print($row['title']);
-                               			 ?> </h2>
-										<h3> Type: <?php print($row['task_type'])?>
-										<br>
-										Claim by: <?php print($row['claim_by_date'])?> </h3>
-										<p>Basic info about task: <?php print($row['text_description'])?> 
-										<br>
-										Number of pages: <?php print($row['no_of_pages'])?>
-										<br>
-										Number of words: <?php print($row['no_of_words'])?><p>
-										<form action="claimedTasks.php" method ="post">
-										<input type = "hidden" name ="text" value = "<?php print($row['task_id'])?>">
-							    		<input type="submit" value="View details">
-							    		</form>
-										</section>
-									<?php	
+										$claim_ids[$i] = htmlspecialchars($claimIDS['claim_id'],ENT_QUOTES);
+										$i++;
 									}
-								}
+								    for($b = 0; $b < sizeof($claim_ids);$b++)
+								    {
+										$sql = "SELECT task_id from task_claims Where user_id = '$user_id' AND claim_id = '$claim_ids[$b]'";
+										$result = mysqli_query($connect,$sql);
+										$row = $result->fetch_assoc();
+										$taskClaim_ids[$b] = htmlspecialchars($row['task_id'],ENT_QUOTES);
+									}
+									for($n = 0; $n < sizeof($taskClaim_ids); $n++)
+									{
+										$sql = "SELECT * FROM tasks WHERE task_id = '$taskClaim_ids[$n]'";
+										$result = mysqli_query($connect,$sql);
+										While($row = mysqli_fetch_assoc($result))
+										{
+								        $id = $row['task_id'];
+										$sql = "SELECT status 
+										         FROM status a 
+												 JOIN taskStatus b 
+												 ON a.status_id = b.status_id 
+												 JOIN task_claims c 
+												 ON b.claim_id = c.claim_id 
+												 where c.task_id = $id ";
+										$CurStat = mysqli_query($connect,$sql);
+										$Status = mysqli_fetch_assoc($CurStat);
+								 
 								?>
-					
-									
+											<section>
+											<br>
+											<h2> task: <?php print(htmlspecialchars($row['title'], ENT_QUOTES));
+											 ?> </h2>
+											Current Status: <?php print($Status['status'])?>
+											<br>
+											<h3> Type: <?php print(htmlspecialchars($row['task_type'], ENT_QUOTES))?>
+											<br>
+											Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES))?> </h3>
+											<p>Basic info about task: <?php print(htmlspecialchars($row['text_description'], ENT_QUOTES))?> 
+											<br>
+											Number of pages: <?php print(htmlspecialchars($row['no_of_pages'], ENT_QUOTES))?>
+											<br>
+											Number of words: <?php print(htmlspecialchars($row['no_of_words'], ENT_QUOTES))?><p>
+											<form action="claimedTasks.php" method ="post">
+											<input type = "hidden" name ="text" value = "<?php print(htmlspecialchars($row['task_id'], ENT_QUOTES))?>">
+											<input type="submit" value="View details">
+											</form>
+											</section>
+								<?php	
+										}
+									}
+								?>
+					            </div>	
 							</div>
 						</div>						
 					</div>
 				</div>
-				
-				
-
 			<!-- Footer -->
 					<div id="copyright" class="container">
 						<ul class="links">

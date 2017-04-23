@@ -3,13 +3,12 @@
 	// calling the database handler which will handle statements back and forth
 	include 'dbh.php';
 	// recieving all the data posted from index.php
-	$firstName = strip_tags($_POST['firstName']);
-	$lastName = strip_tags($_POST['lastName']);
-	$idNumber = strip_tags($_POST['idNumber']);
-	$email = strip_tags($_POST['email']);
-	$field = strip_tags($_POST['browser']);
-	$password = strip_tags($_POST['password']);
-	$cpassword= strip_tags($_POST['cpassword']);
+	$firstName = mysqli_real_escape_string($connect,strip_tags($_POST['firstName']));
+	$lastName = mysqli_real_escape_string($connect,strip_tags($_POST['lastName']));
+	$idNumber = mysqli_real_escape_string($connect,strip_tags($_POST['idNumber']));
+	$email = mysqli_real_escape_string($connect,strip_tags($_POST['email']));
+	$field = mysqli_real_escape_string($connect,strip_tags($_POST['browser']));
+	$password = mysqli_real_escape_string($connect,strip_tags($_POST['password']));
 	// Array of allowed email domains able to register to the site
 	$allowed = array('studentmail.ul.ie', 'ul.ie');
     if (isset($_POST['email'])) {
@@ -42,21 +41,40 @@
 						header('location: index.php?FieldFail=true');
 					}else {
 			            // SQL statement to insert the new users details into the database
-					    $sql = "INSERT INTO `user_details`(`first_name`, `last_name`, `student_staff_id`, `email`, `subject_id`, `password`) 
-						                            VALUES ('$firstName', '$lastName', '$idNumber', '$email', '$field[0]', '$password')";
+					    $confirmcode = rand();
+						$sql = "INSERT INTO `user_details`(`first_name`, `last_name`, `student_staff_id`, `email`, `subject_id`, `password`,`confirmed`, `confirm_code`) 
+						                            VALUES ('$firstName', '$lastName', '$idNumber', '$email', '$field[0]', '$password', '0', '$confirmcode')";
 					    $result = mysqli_query($connect,$sql);
 						$sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
 						$result = mysqli_query($connect,$sql);
 						$row = $result -> fetch_assoc();
+						
+						$message =
+						"
+						We see that you have recently created an account with us. To complete the process, please 
+						click on the link below to register and verify your account.
 					
-						setcookie('userID',$row[user_id],time() + (86400 * 30));
+						Link:
+						https://cs-4014-project.000webhostapp.com/emailconfirm.php?email=$email&code=$confirmcode
+					
+						From the team at the University of Limerick
+						";
+					
+						mail($email, "Account Email Verification", $message, "From: do-not-reply@cs4014.ul.ie");
+					
+						echo "
+							<h2><strong>Account created</strong></h2>
+							Success! Your new account has been created. A confirmation email has been sent to your email inbox. You cannot log on unless your email is verified.
+						";
+					
+						setcookie('userID',$row['user_id'],time() + (86400 * 30));
 						// Setting cookies in the users browser to so that they may automatically login in the future
 						setcookie('email',$email ,time() + (86400 * 30));
 						// Cookie expires after a month
 						setcookie('password',$password ,time() + (86400 * 30));
-						setcookie('RepScore',$row[reputation_score],time() + (86400 * 30));
+						setcookie('RepScore',$row['reputation_score'],time() + (86400 * 30));
 						// Directs user to there profile;
-						header("location: userProfile.php");
+						//header("location: userProfile.php");
 					}
 				}
 			}

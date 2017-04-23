@@ -24,8 +24,7 @@
             WHERE b.user_id = $ban[1];
 			";
 		$result = mysqli_query($connect,$sql);
-		}
-	}		
+	}
 	if(isset($_POST['unpublish'])){
     $unpublish = explode(",",($_POST['unpublish']));;
 	 $sql = "UPDATE taskStatus s

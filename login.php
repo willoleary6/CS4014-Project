@@ -5,8 +5,8 @@
     //if statement to check if 'email' cookie has been set
     if(isset($_COOKIE['email'])) {
 	    //if true the program will automatically log the user in.
-	    $email = $_COOKIE['email'];
-	    $password = $_COOKIE['password'];
+	    $email = htmlspecialchars($_COOKIE['email'], ENT_QUOTES);
+	    $password = htmlspecialchars($_COOKIE['password'], ENT_QUOTES);
 	    // sql statement to check if the email and password cookies are in the database 
 	    $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
         $result = mysqli_query($connect,$sql);
@@ -24,8 +24,11 @@
     }else {
         /*if the user has no cookies set then the program will verify 
 		their credentials and set cookies*/
-	    $email = strip_tags($_POST['email']);
-	    $password = strip_tags($_POST['password']);
+	    //protecting against XXS attacks and sql injections
+		$temp1 = strip_tags($_POST['email']);
+		$temp2 = strip_tags($_POST['password']);
+		$email = mysqli_real_escape_string($connect,$temp1);
+	    $password = mysqli_real_escape_string($connect,$temp2);
 	    $sql = "SELECT * FROM `user_details` WHERE email = '$email' AND password = '$password'";
 	    $result = mysqli_query($connect,$sql);
 		$row = $result -> fetch_assoc();
