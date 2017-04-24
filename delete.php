@@ -40,7 +40,7 @@
 			WHERE user_id = '$userID'";
  	if(mysqli_query($connect, $sql))
  	{
- 		echo "Records were deleted successfully.";
+ 		header("location:logout.php");
  	}
  	else
  	{

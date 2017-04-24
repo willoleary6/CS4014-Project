@@ -62,10 +62,14 @@
 									
 									<form action = "delete.php" name = "delete" method ="POST">
 									
-									<button type="submit" onclick = "delete.php">Continue</button>
+									<input type="submit" value = "Continue">
 																		
 									</form>
-									<button type="submit" onclick = "userProfile.php">Cancel</button>
+									
+									<form action = userProfile.php>
+									<input type="submit" value = "Cancel">
+									</form>
+									
 					            </div>	
 							</div>
 						</div>						
