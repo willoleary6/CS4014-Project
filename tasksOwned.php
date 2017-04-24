@@ -21,7 +21,7 @@
 	$result = mysqli_query($connect,$sql);
 	$status_details = mysqli_fetch_assoc($result);
 	$status_id = $status_details['status_id'];
-	if($status_id == 2)
+	if($status_id == 2 || $status_id == 5)
 		$claimaint	= claimaintDetails($claim_details['user_id']);
 	
 	$sql = "SELECT * from status WHERE status_id = $status_id";
@@ -38,10 +38,10 @@
 	
 	function claimaintDetails($idNumber) {
 		include 'dbh.php';
-		$sql = "SELECT user_id, first_name, last_name from user_details WHERE user_id = $idNumber";
+		$sql = "SELECT user_id, first_name, last_name, email from user_details WHERE user_id = $idNumber";
 		$result = mysqli_query($connect,$sql);
-		$claimant = mysqli_fetch_assoc($result);
-		return $clamaint;
+		$claimaint = mysqli_fetch_assoc($result);
+		return $claimaint;
 	}
 	
 	function creatorDetails($idNumber) {
@@ -51,6 +51,7 @@
 		$creator = mysqli_fetch_assoc($result);
 		return $creator;
 	}
+
 ?>
 <script>
 /* taken readCookie from stack overflow
@@ -72,6 +73,16 @@ function isMod() {
 	var btn1 = document.getElementById('mod');
     btn1.style.visibility = 'hidden';
 	
+	}
+	isClaimed();
+}
+function isClaimed(){
+	var status = <?php echo json_encode($status_id);?>;
+	if(status > 5 || status < 5){
+		var btn1 = document.getElementById('add');
+		var btn2 = document.getElementById('sub');
+		btn1.style.visibility = 'hidden';
+		btn2.style.visibility = 'hidden';
 	}
 }
 </script>
@@ -130,13 +141,19 @@ function isMod() {
 							                      </form>
 												</li>
 												<li>
-												<li>
-												<form action="flag.php">
-												  <input type = "hidden" name = "flag" value = "<?php print($row['task_id'])?>">
-							                      <input type="submit" value="Flag Task">
+                                                  <form action="completed_tasks.php" method = "POST" id = "add">
+												  <input type = "hidden" name = "id" value = "<?php print($claimaint['user_id'])?>">
+												  <input type = "hidden" name = "value" value = "1">
+							                      <input type="submit" value="Rate Happy">
 							                      </form>
 												</li>
-												
+												<li>
+                                                  <form action="completed_tasks.php" method = "POST" id = "sub">
+												  <input type = "hidden" name = "id" value = "<?php print($claimaint['user_id'])?>">
+												  <input type = "hidden" name = "value" value = "2">
+							                      <input type="submit" value="Rate Not Happy">
+							                      </form>
+												</li>
 											</ul>
                                          </section>
 										
@@ -162,9 +179,17 @@ function isMod() {
 													<br>
 													Task Status: <?php print(htmlspecialchars($status['status'], ENT_QUOTES))?>
 													<br>
-													task Claimant: <?php if($status_id == "2")
-																	print(htmlspecialchars($['status'], ENT_QUOTES));
-																	else print("No associated tag");?>
+													task Claimant first name: <?php if($status_id == "2" || $status_id == "5")
+																	print(htmlspecialchars($claimaint['first_name'], ENT_QUOTES));
+																	else print("No claimaint");?> 
+													<br>
+													task Claimant last name: <?php if($status_id == "2" || $status_id == "5")
+																	print(htmlspecialchars($claimaint['last_name'], ENT_QUOTES));
+																	else print("No claimaint");?> 
+													<br>
+													task Claimant email: <?php if($status_id == "2")
+																	print(htmlspecialchars($claimaint['email'], ENT_QUOTES));
+																	else print("No claimaint");?> 
 													<br>
 													Claim by: <?php print(htmlspecialchars($row['claim_by_date'], ENT_QUOTES))?> 
 													<br>
