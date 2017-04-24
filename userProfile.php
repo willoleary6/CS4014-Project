@@ -92,7 +92,8 @@
 										Email: <?php echo "$email" ?>
 										<br>
 										Field: <?php echo "$subject_name " ?>
-										<br>
+										<br><br>
+										<li><a class="icon fa-cog" href="deleteUser.php"><span>Delete Account</span></a></li>
 										<h3>
 									<section>
 										
