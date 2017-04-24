@@ -165,7 +165,7 @@ function isMod() {
 																	findTag($row['tag_4']);
 																	else print("No associated tag");?>
 													<br>
-													File Type: <?php print($row['file_type'], ENT_QUOTES))?><p>
+													File Type: <?php print(htmlspecialchars($row['file_type'], ENT_QUOTES))?><p>
 											
 													</section>												  
 									
