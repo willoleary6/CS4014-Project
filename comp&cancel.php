@@ -17,6 +17,9 @@
 		$result = mysqli_query($connect,$sql);
 		$sql = "UPDATE taskStatus SET status_id = '5' WHERE claim_id = '".$row['claim_id']."'";
 		$result = mysqli_query($connect,$sql);
+		$description = $_POST['description'];
+		$sql = "UPDATE tasks SET completed_summaery = $description WHERE task_id = $task_id";
+		$result = mysqli_query($connect,$sql);
 		header("location: userProfile.php");
 	}
 	else //id 2 is for canceled task
