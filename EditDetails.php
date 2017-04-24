@@ -75,7 +75,7 @@ function passwordValidation() {
  				//getting the info of the user from the cookies
 				$email = $_COOKIE['email'];
 	 			$password = $_COOKIE['password'];
- 				$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
+ 				$sql = "SELECT * FROM user_details Where email = '$email'";
  				$comments = mysqli_query($connect, $sql);
  				//setting the variables from the database
 				if($row = $comments->fetch_assoc()) {	

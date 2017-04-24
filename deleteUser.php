@@ -20,7 +20,7 @@
 				$reputation_score = $_COOKIE['RepScore'];
  				$user_id = $_COOKIE['userID']; 
 				//getting the users name and reputation
-				$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
+				$sql = "SELECT * FROM user_details Where email = '$email'";
  				$comments = mysqli_query($connect, $sql);
  				while($row = $comments->fetch_assoc()) 
  				{

@@ -38,7 +38,7 @@
 
 					$result = mysqli_query($connect,$sql);
 					
-					$sql = "SELECT * FROM `user_details` WHERE email = '$new_Email' AND password = '$new_Password'";
+					$sql = "SELECT * FROM `user_details` WHERE email = '$new_Email'";
 					$result = mysqli_query($connect,$sql);
 					if(!$row = $result -> fetch_assoc()) {
 						echo "Didnt work";
