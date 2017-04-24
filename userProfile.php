@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
+	
 	<body class="no-sidebar">
 		<div id="page-wrapper">
             <?php
@@ -21,18 +22,22 @@
 				//getting the users name and reputation
 				$sql = "SELECT * FROM user_details Where email = '$email' AND password = '$password'";
  				$comments = mysqli_query($connect, $sql);
- 				while($row = $comments->fetch_assoc()) {
+ 				while($row = $comments->fetch_assoc()) 
+ 				{
   					$first_name = htmlspecialchars($row['first_name'],ENT_QUOTES);
  					$last_name = htmlspecialchars($row['last_name'],ENT_QUOTES);
   				}
   		    ?>
+  		    
             <!-- Header -->
 			<div id="header-wrapper">
 				<div id="header" class="container">
+				
 					<!-- Logo -->
 						<h1 id="logo"> <?php echo "<div style = 'margin:30px 0px;'> $first_name $last_name </div>"; ?> </h1><br>
 						<h2 id ="logo"> <?php echo "<div style = 'margin:30px 0px;'> Rep Score: $reputation_score </div>"; ?> </h2>
 						<p>Welcome, please view any tasks you have created or claimed here.</p>
+						
                         <!-- Nav -->
 							<nav id="nav">
 								<ul>
@@ -42,8 +47,10 @@
 									<li><a class="icon fa-sitemap" href="CreateTask.php"><span>Create task</span></a></li>
 								</ul>
 							</nav>
+							
 				</div>
 			</div>
+			
             <!-- Main -->
 				<div id="main-wrapper">
 					<div id="main" class="container">
@@ -51,9 +58,49 @@
 							<div class="row">
 							<!-- User Created Tasks -->
 								<div class="6u 12u(mobile)">
+									
+									<section>
+										<h2>User Details</h2>
+									<section>
+									
+									<?php 
+										
+										$sql = "SELECT * FROM user_details where user_id = '$user_id'";
+  										$result = mysqli_query($connect,$sql);
+  										if($row = $result->fetch_assoc())
+  										{
+  											$student_staff_id = $row['student_staff_id'];
+  											$subject_id = $row['subject_id'];
+  										}
+										
+										$sql = "SELECT subject_name FROM major_subjects where subject_id = '$subject_id'";
+  										$result = mysqli_query($connect,$sql);
+  										if($row = $result->fetch_assoc())
+  										{
+  											$subject_name = $row['subject_name'];
+  										}
+										
+									?>
+									
+									<section>
+										<h3>First Name: <?php echo "$first_name" ?>
+										<br>
+										Last Name: <?php echo "$last_name" ?>
+										<br>
+										Student/Staff ID: <?php echo "$student_staff_id" ?>
+										<br>
+										Email: <?php echo "$email" ?>
+										<br>
+										Field: <?php echo "$subject_name " ?>
+										<br>
+										<h3>
+									<section>
+										
+										
 									<section>
 										<h2>Your Created Tasks</h2>
 									</section>
+									
 									<?php
 										// selecting all the information from the tasks the user has created
 										$sql = "SELECT * from tasks WHERE user_id = $user_id";
@@ -92,13 +139,17 @@
 											</form>
 											</section>
 									<?php 
-										}?>
+										}
+									?>
 								</div>
+								
 								<!-- User Claimed Tasks -->
 								<div class="6u 12u(mobile)">
+								
 									<section>
 									<h2>Your Claimed Tasks</h2>
 									</section>
+									
 								<?php
 									// selecting all the information from the tasks the user has created
 									$sql = "SELECT claim_id from taskStatus WHERE status_id = 2";

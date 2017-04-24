@@ -85,6 +85,13 @@ function passwordValidation() {
   					$subject_id = $row['subject_id'];
   					$reputation_score = $row['reputation_score'];
   				}
+  				
+  				$sql = "SELECT subject_name FROM major_subjects where subject_id = '$subject_id'";
+  				$result = mysqli_query($connect,$sql);
+  				if($row = $result->fetch_assoc())
+  				{
+  					$subject_name = $row['subject_name'];
+  				}
   			?>
 
 			<!-- Header -->
@@ -136,7 +143,7 @@ function passwordValidation() {
 											}
 										?>
 										<br>
-										Field:<br>
+										Field: <?php echo "$subject_name" ?>
 										<input list="fields" name="browser" required><br>
 										<datalist id="fields">
 										<?php
