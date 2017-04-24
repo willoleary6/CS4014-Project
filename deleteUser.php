@@ -62,7 +62,8 @@
 									
 									<form action = "delete.php" name = "delete" method ="POST">
 									
-									<button type="button";">Continue</button>
+									<button type="submit" onclick = "delete.php">Continue</button>
+									<button type="submit" onclick = "userProfile.php">Cancel</button>
 																		
 									</form>
 					            </div>	
