@@ -1,5 +1,4 @@
 <?php
-	// written by Aidan Cleere
 	include 'dbh.php';
 	$identifier = $_POST['identifier'];
 	$task_id = $_POST['task_id'];
@@ -17,8 +16,9 @@
 		$result = mysqli_query($connect,$sql);
 		$sql = "UPDATE taskStatus SET status_id = '5' WHERE claim_id = '".$row['claim_id']."'";
 		$result = mysqli_query($connect,$sql);
-		$description = $_POST['description'];
-		$sql = "UPDATE tasks SET completed_summaery = $description WHERE task_id = $task_id";
+		$description = strip_tags($_POST['description']);
+		
+		$sql = "UPDATE tasks SET completed_summary = '$description' WHERE task_id = '$task_id'";
 		$result = mysqli_query($connect,$sql);
 		header("location: userProfile.php");
 	}
@@ -40,3 +40,4 @@
 		$result = mysqli_query($connect,$sql);
 		header("location: userProfile.php");
 	}
+?>

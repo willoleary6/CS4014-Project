@@ -46,7 +46,7 @@ function addFields(){
 
 						<!-- Logo -->
 							<h1 id="logo"><a>Create Task</a></h1>
-							<p>Create that Task Son!!!!</p>
+							<p>Create a task to be peer reviewed</p>
 
 						<!-- Nav -->
 							<nav id="nav">

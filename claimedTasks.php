@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <!--
-	written by Aidan Cleere
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
@@ -20,6 +19,29 @@
 	print($tagRow['text']);
 	}
 ?>
+<script>
+/* taken readCookie from stack overflow
+http://stackoverflow.com/questions/10730362/get-cookie-by-name*/
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function isMod() {
+	var rep = readCookie('RepScore');
+	if(rep < 40) {
+	var btn1 = document.getElementById('mod');
+    btn1.style.visibility = 'hidden';
+	
+	}
+}
+</script>
 <html>
 	<head>
 		<title><?php print($row['title']);?></title>
@@ -61,7 +83,7 @@
 										<section>
 											<ul class="divided">
 												<li>
-                                                  <form action="task stream.php">
+                                                  <form action="taskStream.php">
 							                      <input type="submit" value="Back to task Stream">
 							                      </form>
 												</li>
@@ -83,6 +105,14 @@
 												
 											</ul>
 										</section>
+									 <section>
+												 <form action="modFunctions.php" id = "mod" method = "POST">
+                                                 <h2>MODERATOR FUNCTIONS</h2>
+												 <input type="checkbox" id = "unPub" name ="unpublish" value=<?php echo 'unpublish,'.$row['task_id']?>> Unpublish Task<br>
+                                                 <input type="checkbox" id = "ban" name ="ban" value=<?php echo 'ban,'.$row['user_id']?>>Ban User<br>
+                                                 <input type="submit" value="Submit">
+												 </form>
+                                         </section>
 
 									
 

@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <!--
-Written by Aidan Cleere
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
@@ -98,10 +97,10 @@ Written by Aidan Cleere
 													<section>
 														<form action="userProfile.php" method = "POST">
 														<textarea type="textarea" name="Description" rows="5" required>
-Hello <?php print $first_name_owner?> <?php print $last_name_owner?>,
-I would like to request a download of the full file for <?php print $taskTitle?>
-as i have claimed the task and would like a better understanding of it.
-regards <?php print $first_name_claimaint?> <?php print $last_name_claimaint?>
+															Hello <?php print $first_name_owner?> <?php print $last_name_owner?>,
+															I would like to request a download of the full file for <?php print $taskTitle?>
+															as i have claimed the task and would like a better understanding of it.
+															regards <?php print $first_name_claimaint?> <?php print $last_name_claimaint?>
 														</textarea><br>
 														<input type="submit" value="send">
 													</section>												  

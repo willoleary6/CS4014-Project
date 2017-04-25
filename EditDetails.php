@@ -147,18 +147,18 @@ function passwordValidation() {
 										<input list="fields" name="browser" required><br>
 										<datalist id="fields">
 										<?php
-											include 'dbh.php';
-										    $numberOfFields = 0;
-											$sql = "SELECT subject_name FROM `major_subjects`";
-											$result = mysqli_query($connect,$sql);
-											$numberOfFields = mysqli_num_rows($result);						  
-											$names = mysqli_fetch_array($result);
-                                            for($i = 0; $i <$numberOfFields;$i++) {	
-										?>
-										    <option value ="<?php echo htmlspecialchars($names[0], ENT_QUOTES, 'UTF-8'); ?>" >
-										<?php  $names = mysqli_fetch_array($result); 
-										    }
-										?>
+												include 'dbh.php';
+												$numberOfFields = 0;
+												$sql = "SELECT subject_name FROM `major_subjects`";
+												$result = mysqli_query($connect,$sql);
+												$numberOfFields = mysqli_num_rows($result);						  
+												$names = mysqli_fetch_assoc($result);
+												for($i = 0; $i <$numberOfFields;$i++) {	
+											?>
+													<option value ="<?php echo htmlspecialchars($names['subject_name'], ENT_QUOTES);?>">
+													<?php  $names = mysqli_fetch_assoc($result); 
+												}
+											?>
 										</datalist>
 										<?php if (isset($_GET['FieldFail'])) { ?>
 										<b>*Error you have not chosen a valid field</b><br>

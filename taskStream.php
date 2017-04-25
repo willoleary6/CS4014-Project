@@ -40,17 +40,16 @@
         for($k = 0; $k < sizeof($tagList);$k++) {
 	        $tagList[$k] = findTag($row[$tagList[$k]]);
         }
-        $cookie_name = 'tags';
         // check if the cookie "tags" has been set, if so then the filter will go to work
-        if(!isset($_COOKIE[$cookie_name])) {
+        if(!isset($_COOKIE['tags'])) {
             return true;
 	    }else {
 		    //split the tags into an array with ","
-		    $subscribedTags =  explode(",", $_COOKIE[$cookie_name]);
+		    $subscribedTags =  explode(",", $_COOKIE['tags']);
 		    for($i = 0; $i < sizeof($subscribedTags);$i++) {
 	            for($j = 0; $j < sizeof($tagList); $j++) {
 		            //if one of the tasks tags matches a subscribed tag return true
-				    if($subscribedTags[$i] === $tagList[$j]) {
+				    if($subscribedTags[$i] == $tagList[$j]) {
 				        return true;
 				    }
 			    }
@@ -117,12 +116,7 @@
     }
 ?>
 <script>
-//javascript to clear the subscribed list
-function clear() {
-	document.cookie = "tags=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    //reload page once cookie is cleared
-	location.reload();
-}
+
 //javascript to show to the user all the tags he/she has subscribed too
 function displayTags() {
 	var tags = readCookie('tags');
@@ -257,7 +251,7 @@ function addTag() {
 									                <p> List of subscribed tags</p>
 									            </div>
 									    </form>
-									    <form action = "JavaScript:clear()">
+									    <form action = "clearTag.php">
 											
 											<br>
 											

@@ -27,28 +27,6 @@
 
 					<!-- Logo -->
 					<h1 id="logo"><a href="index.html">Password Reset</a></h1>
-
-					<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a class="icon fa-home" href="index.php"><span>Home</span></a></li>
-							<li><a href="#" class="icon fa-bar-chart-o"><span>Dropdown</span></a>
-								<ul>
-								<li><a href="#">Lorem ipsum dolor</a></li>
-									<li><a href="#">Magna phasellus</a></li>
-									<li><a href="#">Etiam dolore nisl</a></li>
-									<li><a href="#">Phasellus consequat</a>
-										<ul>
-											<li><a href="#">Magna phasellus</a></li>
-											<li><a href="#">Etiam dolore nisl</a></li>
-											<li><a href="#">Phasellus consequat</a></li>
-										</ul>
-									</li>
-									<li><a href="#">Veroeros feugiat</a></li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
 				</div>
 			</div>
 
@@ -98,39 +76,33 @@
 										$code = rand(10000, 10000000);
 				
 										// Email sent to user. Link generated includes random unique code generated and email given
-										$to = $db_email;
-										$subject = "Password Reset";
-										$body = "
-											This is an automated email. Please DO NOT reply to this email.
+										/*$message = "
+This is an automated email. Please DO NOT reply to this email.
 
-											You have requested to have your account password reset. To do this, please
-											click on the link below or copy and paste it into your browser.
+You have requested to have your account password reset. To do this, please click on the link below or copy and paste it into your browser.
 	
 					
-											Link:
-											https://cs-4014-project.000webhostapp.com/recover.php?code=$code&email=$email
-										";
+Link:
+https://cs-4014-project.000webhostapp.com/recover.php?code=$code&email=$email
+										";*/
 					
 										// Updates the password_reset variable in the database for the account
 										$sql = "UPDATE user_details SET password_reset='$code' WHERE email='$email'";
 										mysqli_query($connect,$sql);
-										mail($to,$subject, $body);
-
+										//mail($email, "Account Password Reset", $message, "From: do-not-reply@cs4014.ul.ie");
 										echo "
 											<h2><strong>Password Reset email sent</strong></h2>
-											A password rest request has been sent to your email inbox.
+											A password rest request has been sent to your email inbox. <a href='recover.php?code=$code&email=$email'>Click here</a>;
+										";
+									// If email provided by user is found not to be in the database	}
+									} else {
+										echo "
+											<h2><strong>Incorrect email given</strong></h2>
+											No account with the email provided exists on our servers. Please click <a href='recoverForm.html'>here</a> and try again.
 										";
 									}
 								}
-								
-								// If email provided by user is found not to be in the database
-								else {
-									echo "
-										<h2><strong>Incorrect email given</strong></h2>
-										No account with the email provided exists on our servers. Please click <a href='recoverForm.html'>here</a> and try again.
-									";
-								}
-							}	
+							}
 						?>
 					</div>
 				</div>

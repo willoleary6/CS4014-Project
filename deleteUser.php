@@ -57,15 +57,14 @@
 					<div id="main" class="container">
 						<div id="content">
 							<div class="row">
-							<!-- User Created Tasks -->
-								<div class="6u 12u(mobile)">
+							<!-- Redirect to delete.php then log or cancel and back to user profile -->
+								<div class="8u 12u(mobile)">
 									
 									<form action = "delete.php" name = "delete" method ="POST">
-									
 									<input type="submit" value = "Continue">
 																		
 									</form>
-									
+									<br>
 									<form action = userProfile.php>
 									<input type="submit" value = "Cancel">
 									</form>

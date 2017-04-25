@@ -111,7 +111,7 @@ function isMod() {
 							                    </form>
 												</li>
 												<li>
-												<form action="flag.php">
+												<form action="flag.php" method = "POST">
 												  <input type = "hidden" name = "flag" value = "<?php print($row['task_id'])?>">
 							                      <input type="submit" value="Flag Task">
 							                      </form>

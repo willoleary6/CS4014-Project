@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <!--
-	written by AidanCleere
 	Strongly Typed by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)-->
@@ -40,9 +39,9 @@
 												<p>&nbsp;</p>
 							<!-- User Tasks -->
 								<div id="content" class="8u 12u(mobile) important(mobile)">
-								<form action="comp&cancel.php" method ="post">
+								<form action="comp&cancel.php" method ="POST">
 									Description of work done:<br>
-									<textarea type="textarea" name="Description" rows="5" required></textarea><br>
+									<textarea type="textarea" name="description" rows="5" required></textarea><br>
 									<input type = "hidden" name = "identifier" value = "1">
 									<input type = "hidden" name = "task_id" value = "<?php print $id?>">
 									<input type="submit" value="Submit">

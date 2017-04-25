@@ -1,18 +1,23 @@
 <?php
-    //Written by Bernard Steemers
+    //Written by Bernard Steemers and Aaron Dunne
 	include 'dbh.php';
 	include 'cookieCheck.php';
 	//Variables taking in the values posted to them
-	$new_First_Name = 	strip_tags($_POST['EditFN']);
-	$new_Last_Name = 	strip_tags($_POST['EditLN']);
-	$new_Student_Staff_Id =		strip_tags($_POST['EditSTID']);
-	$new_Email = 		strip_tags($_POST['EditEmail']);
-	$new_Password = 	strip_tags($_POST['EditPassword']);	
-	$new_field = strip_tags($_POST['browser']);	
+	$new_First_Name = 	mysqli_real_escape_string($connect,strip_tags($_POST['EditFN']));
+	$new_Last_Name = 	mysqli_real_escape_string($connect,strip_tags($_POST['EditLN']));
+	$new_Student_Staff_Id =		mysqli_real_escape_string($connect,strip_tags($_POST['EditSTID']));
+	$new_Email = 		mysqli_real_escape_string($connect,strip_tags($_POST['EditEmail']));
+	$new_Password = 	mysqli_real_escape_string($connect,strip_tags($_POST['EditPassword']));	
+	$new_field = mysqli_real_escape_string($connect,strip_tags($_POST['browser']));	
 	$email = $_COOKIE['email'];
-	$password = $_COOKIE['password'];
 	$userID = $_COOKIE['userID'];
 	$allowed = array('studentmail.ul.ie', 'ul.ie');
+	
+	$sql = "SELECT password FROM user_details WHERE email ='$email'";
+	$result = mysqli_query($connect,$sql);
+	$row = mysqli_fetch_row($result);
+	$password = $row[0];
+			
 	if (filter_var($new_Email, FILTER_VALIDATE_EMAIL)) {
 	    $explodedEmail = explode('@', $new_Email);
 		$domain = array_pop($explodedEmail);
@@ -33,28 +38,34 @@
 				if(!$field) {
 					header('location: editDetails.php?FieldFail=true');
 				}else {
-					$sql = "UPDATE user_details SET first_name= '$new_First_Name', last_name = '$new_Last_Name', student_staff_id = '$new_Student_Staff_Id', 
-					email = '$new_Email', password = '$new_Password', subject_id = '$field[0]' WHERE user_id = '$userID'";
+					$options = array('cost' => 10); 
+					if (password_needs_rehash($new_Password, PASSWORD_BCRYPT, $options)) {
+						// New password is encrpyted before being stored in the database
+						$new_Password = password_hash($new_Password, PASSWORD_BCRYPT, $options);
+						
+						$sql = "UPDATE user_details SET first_name= '$new_First_Name', last_name = '$new_Last_Name', student_staff_id = '$new_Student_Staff_Id', 
+						email = '$new_Email', password = '$new_Password', subject_id = '$field[0]' WHERE user_id = '$userID'";
 
-					$result = mysqli_query($connect,$sql);
-					
-					$sql = "SELECT * FROM `user_details` WHERE email = '$new_Email'";
-					$result = mysqli_query($connect,$sql);
-					if(!$row = $result -> fetch_assoc()) {
-						echo "Didnt work";
-						//header("location: editDetails.php");
-					}else{
-					// Setting cookies in the users browser to so that they may automatically login in the future
-					setcookie('email',$new_Email ,time() + (86400 * 30));
-					// Cookie expires after a month
-					setcookie('password',$new_Password ,time() + (86400 * 30));
-					setcookie('RepScore',$row['reputation_score'],time() + (86400 * 30));
-					// Directs user to there profile;
-					header("location: logout.php");
-				   }
+						if($result = mysqli_query($connect,$sql)) {
+							$sql = "SELECT * FROM `user_details` WHERE email = '$new_Email'";
+							$result = mysqli_query($connect,$sql);
+							if(!$row = mysqli_fetch_assoc($result)) {
+								header("location: editDetails.php");
+							}else{
+								
+								// Setting cookies in the users browser to so that they may automatically login in the future
+								setcookie('email',$new_Email ,time() + (86400 * 30));
+								// Cookie expires after a month
+								setcookie('password',$new_Password ,time() + (86400 * 30));
+								setcookie('RepScore',$row['reputation_score'],time() + (86400 * 30));
+								// Directs user to there profile;
+								header("location: logout.php");
+						     
+							}
+						}
+					}
 				}
-			}
+			} 
 		}
-    }
-  	
+	} 
 ?>
