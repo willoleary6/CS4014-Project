@@ -76,12 +76,12 @@
 	        $sql = "SELECT user_id FROM `user_details` 
 			     WHERE email = '$email' AND password = '$password'";
 	        $result = mysqli_query($connect,$sql);
-	        if(!$row = mysqli_fetch_array($result)) {
+	        if(!$row = mysqli_fetch_assoc($result)) {
                  echo '<script type="text/javascript">alert("couldnt get user id")</script>';
 				 header("location: CreateTask.php");
 		    }else{
 	            //inserting details of the task itself
-			    $userId = $row[0]; 
+			    $userId = $row['user_id']; 
 			    $sql = "INSERT INTO tasks(user_id, title, text_description, task_type, Attached_files, no_of_pages,
 				no_of_words, Deadline, claim_by_date, file_type, tag_1, tag_2, tag_3, tag_4)
 			    VALUES ('$userId', '$TaskTitle','$Description','$TaskType','$target_file','$NumOfPages',
