@@ -49,7 +49,7 @@
 		    for($i = 0; $i < sizeof($subscribedTags);$i++) {
 	            for($j = 0; $j < sizeof($tagList); $j++) {
 		            //if one of the tasks tags matches a subscribed tag return true
-				    if($subscribedTags[$i] == $tagList[$j]) {
+				    if($subscribedTags[$i] == $tagList[$j] && !($tagList[$j] == null)) {
 				        return true;
 				    }
 			    }
