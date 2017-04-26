@@ -50,5 +50,6 @@
 		    setcookie('password',$password ,time() + (86400 * 30));
 		    header('Location: userProfile.php');
 		} 
-    }
+      header('Location: logout.php');
+	}
 ?>
