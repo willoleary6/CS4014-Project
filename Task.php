@@ -21,7 +21,7 @@
 		 return $id;
 	}
 	
-	/*$target_dir = "userFiles\\";
+	$target_dir = "userFiles\\";
 	$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 	$uploadOk = 1;
 	$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -32,8 +32,8 @@
 	if($uploadOk == 0) {
 	    echo "Sorry your file was not uploaded";
 	}
-	else {*/
-	    //if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+	else {
+	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 		    $TaskTitle = 	mysqli_real_escape_string($connect,strip_tags($_POST['TaskTitle']));
 	        $NumOfPages = 	mysqli_real_escape_string($connect,strip_tags($_POST['NumOfPages']));
 	        $TaskType =		mysqli_real_escape_string($connect,strip_tags($_POST['TaskType']));
@@ -111,7 +111,8 @@
 					}
 				}
 		   }
-		/*} else {
-			 echo '<script type="text/javascript">alert("Sorry, there was an error uploading your file, Please try again")</script>';
-		}
-	}*/
+		 }
+         else{
+			echo '<script type="text/javascript">alert("Sorry, there was an error uploading your file, Please try again")</script>'; 
+		 }		 
+	}
